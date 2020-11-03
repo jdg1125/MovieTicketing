@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entity;
 
-namespace Controllers
+namespace Entity
 {
-    public class DBConnector 
+    public class Reservation
     {
-        
     }
 }
