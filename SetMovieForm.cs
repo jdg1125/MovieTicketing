@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Controllers;
+using Entity;
+
 namespace Forms
 {
     public partial class SetMovieForm : IForm
