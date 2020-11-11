@@ -1,6 +1,6 @@
-﻿using Controllers;
+﻿using Control;
 
-namespace Forms
+namespace Boundary
 {
     partial class LogoutForm : IForm
     {

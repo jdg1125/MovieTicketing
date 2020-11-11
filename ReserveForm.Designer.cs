@@ -1,7 +1,7 @@
-﻿using Controllers;
+﻿using Control;
 using Entity;
 
-namespace Forms
+namespace Boundary
 {
     partial class ReserveForm : IForm
     {

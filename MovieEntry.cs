@@ -4,34 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entity
 {
     public class MovieEntry
     {
         public int Theatre { get; set; }
         public string Title { get; set; }
         public List<Showtime> Showings { get; set; }
+        public Showtime Time { get; set; }
         public int SeatsAvailable { get; set; }
         public string PosterPath { get; set; }
 
-        public MovieEntry()
-        {
-            Showings = new List<Showtime>();
-        }
-        public MovieEntry(int theatre, string title, List<Showtime> showings, int seats, string posterpath) 
+
+        public MovieEntry(int theatre, string title, Showtime time, int seats, string posterpath)
         {
             Theatre = theatre;
             Title = title;
-            Showings = showings;
+            Time = time;
             SeatsAvailable = seats;
             PosterPath = posterpath;
-        }
+        } 
 
-        public MovieEntry(int theatre, string title, List<Showtime> showings)
+        public MovieEntry(int theatre, string title, Showtime showing)    
         {
             Theatre = theatre;
             Title = title;
-            Showings = showings;
+            Showings = new List<Showtime>();
+            Showings.Add(showing);
         }
         public void AddTime(Showtime time)
         {

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Controllers;
+using Control;
 using Entity;
 
-namespace Forms
+namespace Boundary
 {
     public partial class SetMovieForm : IForm
     {

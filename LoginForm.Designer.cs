@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Forms
+namespace Boundary
 {
     public partial class LoginForm : IForm
     {
