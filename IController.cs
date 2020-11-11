@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Forms;
+using Boundary;
 
-namespace Controllers
+namespace Control
 {
     public abstract class IController
     {

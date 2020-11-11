@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Forms;
+using Boundary;
 using Entity;
 
-namespace Controllers
+namespace Control
 {
     public class ReserveCtrl : IController
     {

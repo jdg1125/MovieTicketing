@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entity;
 
-namespace Forms
+namespace Boundary
 {
     public partial class ReserveForm : IForm
     {

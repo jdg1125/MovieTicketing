@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entity;
 
-namespace Controllers
+namespace Control
 {
     public class DBConnector 
     {
