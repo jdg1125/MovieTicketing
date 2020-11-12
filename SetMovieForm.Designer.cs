@@ -29,6 +29,9 @@ namespace Boundary
 
         }
 
-        
+        public void DisplayPoster(string path)
+        {
+            //Use API of PictureBox element to render picture
+        }
     }
 }

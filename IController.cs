@@ -12,7 +12,7 @@ namespace Control
         protected IForm _form;
         protected DBConnector _dbConn;
 
-        public abstract void Initiate(string s);
+        public abstract void Initiate(IForm sender, string token);
 
         
     }

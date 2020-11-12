@@ -17,14 +17,7 @@ namespace Boundary
         {
             InitializeComponent();
             _ctrl = context.GetLoginCtrl();
-            tb = new TextBox();
-            btn = new Button();
-            tb.Location = new Point(Top);
-            btn.Location = new Point(Bottom);
-            btn.Text = "Click me";
-            Controls.Add(tb);
-            Controls.Add(btn);
-            btn.Click += new EventHandler(BtnEventHandler);
+            
         }
 
     }

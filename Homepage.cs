@@ -13,9 +13,11 @@ namespace Boundary
 {
     public partial class Homepage : IForm
     {
-        public Homepage()
+        private string _token;
+        public Homepage(string token)
         {
             InitializeComponent();
+            _token = token;
         }
     }
 }

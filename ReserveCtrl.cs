@@ -10,7 +10,7 @@ namespace Control
 {
     public class ReserveCtrl : IController
     {
-        public override void Initiate(string s)
+        public override void Initiate(IForm sender, string token)
         {
             
         }

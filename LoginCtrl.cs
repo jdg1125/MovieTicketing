@@ -10,7 +10,7 @@ namespace Boundary
 {
     public class LoginCtrl : IController
     { 
-        public override void Initiate(string token)
+        public override void Initiate(IForm sender, string token)
         {
             
         }

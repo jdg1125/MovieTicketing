@@ -8,9 +8,7 @@ namespace Boundary
 
         private System.ComponentModel.IContainer components = null;
 
-        public TextBox tb { get; set; }
-
-        public Button btn { get; set; }
+        //buttons and text boxes go here
 
         protected override void Dispose(bool disposing)
         {
@@ -29,13 +27,9 @@ namespace Boundary
             this.Text = "LoginForm";
         }
 
-        public void BtnEventHandler(object sender, EventArgs e)
-        {
-            Display("Button was clicked");
-        }
+        
         public override void Display(string msg)
         {
-            tb.Text = msg;
         }
     }
 }
