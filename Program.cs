@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Control;
+using Boundary;
 
 namespace MovieTicketing
 {
@@ -14,8 +15,11 @@ namespace MovieTicketing
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Startup context = new Startup();
-            Application.Run(context.Form);
+            LogoutForm testForm = new LogoutForm();
+            Application.Run(testForm);
+            
         }
+    
 
     }
 

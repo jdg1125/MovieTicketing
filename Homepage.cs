@@ -18,6 +18,7 @@ namespace Boundary
         {
             InitializeComponent();
             _token = token;
+            
         }
     }
 }

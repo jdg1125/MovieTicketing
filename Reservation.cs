@@ -8,5 +8,6 @@ namespace Entity
 {
     public class Reservation
     {
+
     }
 }

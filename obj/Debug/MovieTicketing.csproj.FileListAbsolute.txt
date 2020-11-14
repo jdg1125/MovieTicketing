@@ -7,3 +7,11 @@ C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.Gen
 C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.CoreCompileInputs.cache
 C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.exe
 C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.pdb
+C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.exe.config
+C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.exe
+C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.pdb
+C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.csprojAssemblyReference.cache
+C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.Properties.Resources.resources
+C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.csproj.GenerateResource.cache
+C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.exe
+C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.pdb
