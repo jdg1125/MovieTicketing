@@ -1,13 +1,8 @@
+C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\movieTitles.txt
+C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\users.txt
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\MovieTicketing.exe.config
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\MovieTicketing.exe
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\MovieTicketing.pdb
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csprojAssemblyReference.cache
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.Properties.Resources.resources
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.GenerateResource.cache
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.CoreCompileInputs.cache
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.exe
-C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.pdb
-<<<<<<< HEAD
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\EntityFramework.dll
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\System.Data.SQLite.dll
@@ -16,16 +11,10 @@ C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\System.Data.SQLite.Linq.d
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\EntityFramework.xml
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\System.Data.SQLite.xml
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.Properties.Resources.resources
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.GenerateResource.cache
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.CoreCompileInputs.cache
 C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csproj.CopyComplete
-C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\movieTitles.txt
-C:\Users\JGLASS4\source\repos\MovieTicketing\bin\Debug\users.txt
-=======
-C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.exe.config
-C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.exe
-C:\Users\mags0\Documents\MovieTicketing\bin\Debug\MovieTicketing.pdb
-C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.csprojAssemblyReference.cache
-C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.Properties.Resources.resources
-C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.csproj.GenerateResource.cache
-C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.exe
-C:\Users\mags0\Documents\MovieTicketing\obj\Debug\MovieTicketing.pdb
->>>>>>> d6b9ddfb40a38ff890e2bf93a6a71c9fd93f7d98
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.exe
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.pdb
+C:\Users\JGLASS4\source\repos\MovieTicketing\obj\Debug\MovieTicketing.csprojAssemblyReference.cache
