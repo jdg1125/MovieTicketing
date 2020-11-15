@@ -39,7 +39,7 @@ namespace Control
             Reservation res = new Reservation(entry, seats);
 
             if (Validate(res, out string msg))
-                _dbConn.Save(res);
+                msg += _dbConn.Save(res);
             
             _form.Display(msg);
             _form.Close();
