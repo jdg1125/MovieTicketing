@@ -33,51 +33,6 @@ namespace Control
             }
             //DropTables();
             _reader.Close();
-
-            //test routine for authenticate and record login
-            //MessageBox.Show(Authenticate("a1234", "C19863D8F150B77DDB6B20A3772BAD18761DA4B78F8D502F32A26AB8467510FF").ToString()); //valid login
-            //MessageBox.Show(Authenticate("b1234", "C19863D8F150B77DDB6B20A3772BAD18761DA4B78F8D502F32A26AB8467510FF").ToString()); //invalid username
-            //MessageBox.Show(Authenticate("a1234", "C19863D8F8d0B77DDB6B20A3772BAD18761DA4B78F8D502F32A26AB8467510FF").ToString()); //invalid pw
-
-            //test routine for Save(MovieEntry) and GetMovieEntries
-            //MovieEntry entry = new MovieEntry(2, "Inception", new Showtime(new DateTime(2020, 1, 1, 12, 0, 0), new DateTime(2020, 1, 1, 14, 0, 0)));
-            //entry.AddTime(new Showtime(new DateTime(2020, 1, 2, 12, 0, 0), new DateTime(2020, 1, 2, 14, 0, 0)));
-            //entry.AddTime(new Showtime(new DateTime(2020, 1, 1, 15, 0, 0), new DateTime(2020, 1, 1, 17, 0, 0)));
-            //Save(entry);
-            //foreach (var item in GetMovieEntries(new DateTime(2020, 1, 2, 12, 0, 0)))
-            //    MessageBox.Show(item.ToString());
-
-            //foreach (var query in new string[] { "SELECT Id, Title, Start, Theater, CurrentCapacity FROM MovieEntry;" })
-            //{
-            //    _cmd.CommandText = query;
-            //    _reader = _cmd.ExecuteReader();
-            //    while (_reader.Read())
-            //        //MessageBox.Show(_reader.GetInt32(0).ToString() + " " + _reader.GetInt32(1).ToString() + " " + _reader.GetInt32(2).ToString());
-            //        MessageBox.Show(_reader.GetInt32(0).ToString() + " " + _reader.GetString(1) + " " + _reader.GetString(2) + " " + _reader.GetInt32(3).ToString() + " " + _reader.GetInt32(4).ToString());
-            //    _reader.Close();
-            //}
-
-
-            //test routine for Save(Reservation) 
-            //Reservation res = new Reservation(new MovieEntry(2, 2, "Inception", new Showtime(new DateTime(2020, 1, 2, 12, 0, 0), new DateTime(2020, 1, 2, 14, 0, 0)), 20, 
-            //    @"C:\Users\JGLASS4\source\repos\MovieTicketing\Posters\inception_poster.jpg"), 4);
-            //MessageBox.Show(Save(res).ToString());
-            //_cmd.CommandText = "SELECT CurrentCapacity FROM MovieEntry WHERE Id=1";
-            //_reader = _cmd.ExecuteReader();
-            //_reader.Read();
-            //MessageBox.Show(_reader.GetInt32(0).ToString());
-            //_reader.Close();
-
-            //test routine for RecordLogout(token)
-            //_cmd.CommandText = "SELECT User, LoginTime FROM UserSession";
-            //_reader = _cmd.ExecuteReader();
-            //_reader.Read();
-            //string user = _reader.GetString(0);
-            //string loginTime = _reader.GetString(1);
-            //_reader.Close();
-            //MessageBox.Show(RecordLogout(user + "_" + loginTime).ToString());
-
-
         }
         private void InitializeDatabase()
         {
@@ -186,21 +141,12 @@ namespace Control
         }
         public void Save(MovieEntry entry)
         {
-            //initial scan to throw out showtimes that conflict with existing showtimes
-            foreach (var showtime in entry.Showings)
-            {
-                _cmd.CommandText = $"SELECT Id FROM MovieEntry WHERE Theater={entry.Theatre} AND Start='{((DateTime)showtime.Start).ToString("g")}'";
-                _reader = _cmd.ExecuteReader();
-                if (_reader.HasRows)
-                {
-                    showtime.Start = null; //mark duplicate showtimes
-                    MessageBox.Show("here");
-                }
-                _reader.Close();
-            }
+            CheckForConflicts(entry); //initial scan to throw out showtimes that conflict with existing showtimes
+
             _cmd.CommandText = $"Select TotalCapacity from Theater where Id={entry.Theatre}";
             _reader = _cmd.ExecuteReader();
-            int total = _reader.Read() ? _reader.GetInt32(0) : -1;
+            _reader.Read();
+            int total = _reader.GetInt32(0);
             _reader.Close();
 
             string common = "Insert into MovieEntry(Title, Date, Start, End, Theater, CurrentCapacity) VALUES ('";
@@ -208,16 +154,16 @@ namespace Control
 
             foreach (var showtime in entry.Showings)
             {
-                if (showtime.Start == null) //skip duplicate showtimes
+                if (showtime.Start == null) //skip showtimes flagged as duplicate in CheckForConflicts()
                     continue;
                 sb.Append(common);
                 sb.Append(entry.Title);
                 sb.Append("', '");
                 sb.Append(((DateTime)showtime.Start).Date.ToString("d"));
                 sb.Append("', '");
-                sb.Append(((DateTime)showtime.Start).ToString("g"));
+                sb.Append(((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss"));
                 sb.Append("', '");
-                sb.Append(((DateTime)showtime.End).ToString("g"));
+                sb.Append(((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss"));
                 sb.Append("', ");
                 sb.Append(entry.Theatre);
                 sb.Append(", ");
@@ -230,22 +176,44 @@ namespace Control
             }
         }
 
+        private void CheckForConflicts(MovieEntry entry)
+        {
+            StringBuilder sb = new StringBuilder();
+            string common = $"SELECT Id FROM MovieEntry WHERE Theater={entry.Theatre} ";
+
+            foreach (var showtime in entry.Showings)
+            {
+                sb.Append(common);
+                sb.Append($"AND Start BETWEEN '{((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss")}' AND '{((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss")}' ");
+                sb.Append("UNION ");
+                sb.Append(common);
+                sb.Append($"AND '{((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss")}' BETWEEN Start AND End ");
+                sb.Append("UNION ");
+                sb.Append(common);
+                sb.Append($"AND '{((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss")}' BETWEEN Start AND End;");
+
+                _cmd.CommandText = sb.ToString();
+                _reader = _cmd.ExecuteReader();
+                
+                if (_reader.HasRows)
+                    showtime.Start = null; //flag duplicate showtimes
+                
+                _reader.Close();
+                sb.Clear();
+            }
+        }
+
         public List<MovieEntry> GetMovieEntries(DateTime date)
         {
             List<MovieEntry> results = new List<MovieEntry>();
             _cmd.CommandText = $"SELECT Id, Theater, Title, Start, End, CurrentCapacity, ImgPath FROM MovieEntry INNER JOIN Poster ON Poster.MovieTitle=MovieEntry.Title WHERE Date='{date.Date.ToString("d")}'";
             _reader = _cmd.ExecuteReader();
-            //MessageBox.Show(_reader.HasRows.ToString());
 
             while (_reader.Read())
             {
-                DateTime start, end;
-
-                DateTime.TryParse(_reader.GetString(3), out start);
-                DateTime.TryParse(_reader.GetString(4), out end);
-
-                Showtime showing = new Showtime(start, end);
-                MovieEntry entry = new MovieEntry(_reader.GetInt32(0), _reader.GetInt32(1), _reader.GetString(2), showing, _reader.GetInt32(5), _reader.GetString(6));
+                DateTime start=DateTime.ParseExact(_reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null);
+                DateTime end =DateTime.ParseExact(_reader.GetString(4), "yyyy-MM-dd HH:mm:ss", null);
+                MovieEntry entry = new MovieEntry(_reader.GetInt32(0), _reader.GetInt32(1), _reader.GetString(2), new Showtime(start, end), _reader.GetInt32(5), _reader.GetString(6));
 
                 results.Add(entry);
             }
@@ -253,7 +221,7 @@ namespace Control
             return results;
         }
 
-        public int Save(Reservation res)
+        public long Save(Reservation res)
         {
             /*Assuming that only one user is using system at once, 
              * no concurrent access implies we don't have to check 
@@ -273,13 +241,7 @@ namespace Control
             _cmd.CommandText = $"UPDATE MovieEntry SET CurrentCapacity={currCap} WHERE Id={res.MovieEntry.Id}";
             _cmd.ExecuteNonQuery();
 
-            _cmd.CommandText = "SELECT MAX(Id) FROM Reservation";
-            _reader = _cmd.ExecuteReader();
-            _reader.Read();
-            int confirmation = _reader.GetInt32(0);
-            _reader.Close();
-            return confirmation;
-
+            return _connection.LastInsertRowId;
         }
         public Poster GetPoster(string title)
         {
