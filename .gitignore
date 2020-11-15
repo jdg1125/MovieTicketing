@@ -1,7 +1,8 @@
 .vs/MovieTicketing/v16/.suo
 bin/Debug/MovieTicketing.exe
 bin/Debug/MovieTicketing.pdb
-obj/Debug/MovieTicketing.csproj.FileListAbsolute.txt
-obj/Debug/MovieTicketing.csprojAssemblyReference.cache
-obj/Debug/MovieTicketing.exe
-obj/Debug/MovieTicketing.pdb
+obj/
+# obj/Debug/MovieTicketing.csproj.FileListAbsolute.txt
+# obj/Debug/MovieTicketing.csprojAssemblyReference.cache
+# obj/Debug/MovieTicketing.exe
+# obj/Debug/MovieTicketing.pdb
