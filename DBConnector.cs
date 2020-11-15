@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
-
 using Entity;
 using System.Windows.Forms;
 
@@ -32,7 +31,7 @@ namespace Control
                 _reader.Close();
                 InitializeDatabase();
             }
-            // DropTables();
+            //DropTables();
             _reader.Close();
 
             //test routine for authenticate and record login
@@ -45,15 +44,26 @@ namespace Control
             //entry.AddTime(new Showtime(new DateTime(2020, 1, 2, 12, 0, 0), new DateTime(2020, 1, 2, 14, 0, 0)));
             //entry.AddTime(new Showtime(new DateTime(2020, 1, 1, 15, 0, 0), new DateTime(2020, 1, 1, 17, 0, 0)));
             //Save(entry);
-            //foreach (var item in GetMovieEntries(new DateTime(2020, 1, 1, 12, 0, 0)))
-            //  MessageBox.Show(item.ToString());
+            //foreach (var item in GetMovieEntries(new DateTime(2020, 1, 2, 12, 0, 0)))
+            //    MessageBox.Show(item.ToString());
+
+            //foreach (var query in new string[] { "SELECT Id, Title, Start, Theater, CurrentCapacity FROM MovieEntry;" })
+            //{
+            //    _cmd.CommandText = query;
+            //    _reader = _cmd.ExecuteReader();
+            //    while (_reader.Read())
+            //        //MessageBox.Show(_reader.GetInt32(0).ToString() + " " + _reader.GetInt32(1).ToString() + " " + _reader.GetInt32(2).ToString());
+            //        MessageBox.Show(_reader.GetInt32(0).ToString() + " " + _reader.GetString(1) + " " + _reader.GetString(2) + " " + _reader.GetInt32(3).ToString() + " " + _reader.GetInt32(4).ToString());
+            //    _reader.Close();
+            //}
 
 
             //test routine for Save(Reservation) 
-            //Reservation res = new Reservation(new MovieEntry(1, 1, "Stalker", new Showtime(new DateTime(2020, 1, 1, 12, 0, 0), new DateTime(2020, 1, 1, 14, 0, 0)), 20, @"C:\Users\JGLASS4\source\repos\MovieTicketing\Posters\stalker_poster.jpg"), 4);
-            //Save(res);
+            //Reservation res = new Reservation(new MovieEntry(2, 2, "Inception", new Showtime(new DateTime(2020, 1, 2, 12, 0, 0), new DateTime(2020, 1, 2, 14, 0, 0)), 20, 
+            //    @"C:\Users\JGLASS4\source\repos\MovieTicketing\Posters\inception_poster.jpg"), 4);
+            //MessageBox.Show(Save(res).ToString());
             //_cmd.CommandText = "SELECT CurrentCapacity FROM MovieEntry WHERE Id=1";
-            //_reader=_cmd.ExecuteReader();
+            //_reader = _cmd.ExecuteReader();
             //_reader.Read();
             //MessageBox.Show(_reader.GetInt32(0).ToString());
             //_reader.Close();
@@ -243,7 +253,7 @@ namespace Control
             return results;
         }
 
-        public void Save(Reservation res)
+        public int Save(Reservation res)
         {
             /*Assuming that only one user is using system at once, 
              * no concurrent access implies we don't have to check 
@@ -262,6 +272,14 @@ namespace Control
 
             _cmd.CommandText = $"UPDATE MovieEntry SET CurrentCapacity={currCap} WHERE Id={res.MovieEntry.Id}";
             _cmd.ExecuteNonQuery();
+
+            _cmd.CommandText = "SELECT MAX(Id) FROM Reservation";
+            _reader = _cmd.ExecuteReader();
+            _reader.Read();
+            int confirmation = _reader.GetInt32(0);
+            _reader.Close();
+            return confirmation;
+
         }
         public Poster GetPoster(string title)
         {

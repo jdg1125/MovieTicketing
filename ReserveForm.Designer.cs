@@ -1,4 +1,5 @@
-﻿using Control;
+﻿using System.Collections.Generic;
+using Control;
 using Entity;
 
 namespace Boundary
@@ -17,8 +18,6 @@ namespace Boundary
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -27,10 +26,19 @@ namespace Boundary
             this.Text = "ReserveForm";
         }
 
-        #endregion
         public override void Display(string s)
         {
             
+        }
+
+        public void Display(List<MovieEntry> entries)
+        {
+
+        }
+
+        public void DisplayPoster(string path)
+        {
+
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-using Control;
+using Boundary;
 
-namespace Boundary
+namespace Control
 {
     public class LoginCtrl : IController
     { 
