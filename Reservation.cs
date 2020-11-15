@@ -8,5 +8,14 @@ namespace Entity
 {
     public class Reservation
     {
+        public MovieEntry MovieEntry { get; set; }
+        public int NumSeats { get; set; }
+
+        public Reservation(MovieEntry entry, int seats)
+        {
+            MovieEntry = entry;
+            NumSeats = seats;
+        }
+
     }
 }
