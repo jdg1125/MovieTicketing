@@ -17,7 +17,7 @@ namespace Boundary
         {
             InitializeComponent();
             _ctrl = context.GetLoginCtrl();
-            
+            LoginForm_Load();
         }
 
     }

@@ -23,6 +23,12 @@ namespace Boundary
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "Homepage";
         }
+        
+        private void Homepage_Load()
+        {
+
+
+        }
 
         public override void Display(string s)
         {

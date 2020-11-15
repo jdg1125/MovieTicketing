@@ -8,6 +8,7 @@ namespace Entity
 {
     public class Reservation
     {
+<<<<<<< HEAD
         public MovieEntry MovieEntry { get; set; }
         public int NumSeats { get; set; }
 
@@ -16,6 +17,8 @@ namespace Entity
             MovieEntry = entry;
             NumSeats = seats;
         }
+=======
+>>>>>>> d6b9ddfb40a38ff890e2bf93a6a71c9fd93f7d98
 
     }
 }
