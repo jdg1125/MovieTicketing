@@ -16,7 +16,6 @@ namespace MovieTicketing
             Application.SetCompatibleTextRenderingDefault(false);
             Startup context = new Startup();
             Application.Run(context.Form);
-            
         }
     
 
