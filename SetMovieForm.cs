@@ -18,6 +18,13 @@ namespace Boundary
         {
             InitializeComponent();
             _ctrl = controller;
+            Setmovieform_Load();
+        }
+        public SetMovieForm()
+        {
+            InitializeComponent();
+            Setmovieform_Load();
+
         }
     }
 }

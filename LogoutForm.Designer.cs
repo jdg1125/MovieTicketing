@@ -35,7 +35,7 @@ namespace Boundary
             Yes.Text = "Yes";
             Yes.Width = 600;
             Yes.Height = 100;
-            Yes.Location = new Point(100, 300);
+            Yes.Location = new Point(480, 300);
             Yes.AutoSize = true;
             Yes.BackColor = Color.White;
             Yes.Padding = new Padding(6);
@@ -44,7 +44,7 @@ namespace Boundary
             Label Logout = new Label();
             Logout.Text = "Log out?";
             Logout.AutoSize = true;
-            Logout.Location = new Point(325, 25);
+            Logout.Location = new Point(700, 25);
             Logout.Font = new Font("Sans Serif", 30);
             this.Controls.Add(Logout);
 
