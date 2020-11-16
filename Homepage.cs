@@ -18,7 +18,11 @@ namespace Boundary
         {
             InitializeComponent();
             _token = token;
+            Homepage_Load();
+          
+
             
+
         }
     }
 }
