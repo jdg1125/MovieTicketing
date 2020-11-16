@@ -15,8 +15,8 @@ namespace MovieTicketing
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Startup context = new Startup();
-            LogoutForm testForm = new LogoutForm();
-            Application.Run(testForm);
+            Homepage testform = new Homepage("E");
+            Application.Run(testform);
             
         }
     

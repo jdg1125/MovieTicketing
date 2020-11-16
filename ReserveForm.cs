@@ -16,6 +16,7 @@ namespace Boundary
         public ReserveForm()
         {
             InitializeComponent();
+            ReserveForm_Load();
         }
     }
 }
