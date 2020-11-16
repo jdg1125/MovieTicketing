@@ -19,5 +19,6 @@ namespace Control
             //query database;
             return new Poster("", "");
         }
+
     }
 }

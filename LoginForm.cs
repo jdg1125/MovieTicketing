@@ -19,6 +19,9 @@ namespace Boundary
             _ctrl = context.GetLoginCtrl();
             
         }
+        public LoginForm()
+        {
 
+        }
     }
 }
