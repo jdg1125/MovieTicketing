@@ -20,10 +20,11 @@ namespace Boundary
         }
         public override void Display(string s)
         {
-            
+            //display the text on the form
         }
         private void InitializeComponent()
         {
+            this.WindowState = FormWindowState.Maximized;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -48,15 +49,12 @@ namespace Boundary
             Logout.Font = new Font("Sans Serif", 30);
             this.Controls.Add(Logout);
 
-
-
-
-
-
-
         }
-
-
+        public override void Close()
+        {
+            this.Dispose();
+            (this as Form).Close();
+        }
 
     }
 }

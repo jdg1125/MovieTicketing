@@ -13,19 +13,15 @@ namespace Boundary
 {
     public class LoginCtrl : IController
     {
+        
         public override void Initiate(IForm sender, string token)
         {
-
+            Application.Run(_form);
         }
-        public LoginCtrl(Startup context, DBConnector db)
+        public LoginCtrl()
         {
-            _form = context.MakeLoginForm();
-            _dbConn = db;
-        }
-
-        public LoginForm GetLoginForm()
-        {
-            return _form as LoginForm;
+            _form = new LoginForm(this);
+            _dbConn = new DBConnector();
         }
 
         public void Submit(string _username, string _password)
@@ -47,6 +43,8 @@ namespace Boundary
                 {
                     _form.Close();
                     Homepage homepage = new Homepage(_token);
+                    MessageBox.Show(_token);
+                    homepage.Show();
                 }
             }
             else

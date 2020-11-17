@@ -16,13 +16,13 @@ namespace Control
         {
             _token = token;
             sender.Close();
-            _form = new ReserveForm(this);
-            //need to explicitly display _form??
+            _form.Show();
         }
 
-        public ReserveCtrl(DBConnector db)
+        public ReserveCtrl()
         {
-            _dbConn = db;
+            _dbConn = new DBConnector();
+            _form = new ReserveForm(this);
         }
 
         public void Select(DateTime date)

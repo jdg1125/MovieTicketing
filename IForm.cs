@@ -12,7 +12,7 @@ namespace Boundary
     public abstract partial class IForm : Form
     {
         protected IController _ctrl;
-        //public abstract void Close();
+        public new abstract void Close();
         public abstract void Display(string s);
     }
 }

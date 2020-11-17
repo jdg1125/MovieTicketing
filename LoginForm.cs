@@ -13,10 +13,13 @@ namespace Boundary
 {
     public partial class LoginForm : IForm 
     {
-        public LoginForm(Startup context)
+        private Button submitBtn;
+        private TextBox usernameBox, passwordBox;
+
+        public LoginForm(LoginCtrl ctrl)
         {
             InitializeComponent();
-            _ctrl = context.GetLoginCtrl();
+            _ctrl = ctrl;
             LoginForm_Load();
         }
         public LoginForm()

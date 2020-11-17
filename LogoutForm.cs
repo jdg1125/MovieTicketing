@@ -13,9 +13,10 @@ namespace Boundary
 {
     public partial class LogoutForm : IForm
     {
-        public LogoutForm()
+        public LogoutForm(LogoutCtrl ctrl)
         {
             InitializeComponent();
+            _ctrl = ctrl;
             LogoutForm_Load();
         }
     }

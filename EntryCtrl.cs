@@ -16,17 +16,17 @@ namespace Control
         private string _token;
 
         private Poster _poster;
-        public EntryCtrl(DBConnector db)
+        public EntryCtrl()
         {
-            _dbConn = db;
+            _dbConn = new DBConnector();
+            _form = new SetMovieForm(this);
         }
 
         public override void Initiate(IForm sender, string token)
         {
             _token = token;
             sender.Close();
-            _form = new SetMovieForm(this);
-            //do we have to call a method in _form to display it?
+            _form.Show();
         }
 
         public void Select(string title)

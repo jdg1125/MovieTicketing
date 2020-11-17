@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Boundary;
 
 namespace Control
@@ -11,15 +12,16 @@ namespace Control
     {
         private string _token;
 
-        public LogoutCtrl(DBConnector db)
+        public LogoutCtrl()
         {
-            _dbConn = db;
+            _dbConn = new DBConnector();
+            _form = new LogoutForm(this);
         }
         public override void Initiate(IForm sender, string token)
         {
             _token = token;
             sender.Close();
-            _form = new LogoutForm();
+            _form.Show();
         }
 
         public void Submit()
@@ -30,9 +32,7 @@ namespace Control
             LoginForm loginform = new LoginForm();
 
         }
-<<<<<<< HEAD
-        
-=======
+
 
         //SHA256 mySHA256 = SHA256.Create();
         //byte[] hashvalue = mySHA256.ComputeHash(Encoding.ASCII.GetBytes("p@ssword"));
@@ -40,7 +40,7 @@ namespace Control
         //    foreach (byte b in hashvalue)
         //        sb.AppendFormat("{0:X2}", b);
         //    MessageBox.Show(sb.ToString());
->>>>>>> master
+
     }
 }
 

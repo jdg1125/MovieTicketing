@@ -293,7 +293,7 @@ namespace Control
             return username + "_" + loginTime;
         }
 
-        private bool RecordLogout(string token)
+        public bool RecordLogout(string token)
         {
             string[] keys = token.Split(new char[] { '_' });
             _cmd.CommandText = $"UPDATE UserSession SET LogoutTime='{DateTime.Now.ToString("G")}' WHERE User='{keys[0]}' AND LoginTime='{keys[1]}';";
