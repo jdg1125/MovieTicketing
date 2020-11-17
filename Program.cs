@@ -14,8 +14,8 @@ namespace MovieTicketing
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Startup context = new Startup();
-            Application.Run(context.Form);
+            LoginCtrl loginCtrl = new LoginCtrl();
+            loginCtrl.Initiate(null, null);
         }
     
 

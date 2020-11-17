@@ -113,6 +113,7 @@ namespace Boundary
 
         private void InitializeComponent()
         {
+            this.WindowState = FormWindowState.Maximized;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -121,12 +122,18 @@ namespace Boundary
 
         public override void Display(string s)
         {
-            
+            //display text on form
         }
 
         public void Display(List<MovieEntry> entries)
         {
 
+        }
+
+        public override void Close()
+        {
+            this.Dispose();
+            (this as Form).Close();
         }
 
         public void DisplayPoster(string path)

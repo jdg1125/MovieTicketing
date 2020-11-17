@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="SetMovieForm.Designer.cs" />
     <Compile Include="Showtime.cs" />
-    <Compile Include="Startup.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

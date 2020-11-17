@@ -14,15 +14,12 @@ namespace Boundary
     public partial class Homepage : IForm
     {
         private string _token;
+        Button reserve, logout, set;
         public Homepage(string token)
         {
             InitializeComponent();
             _token = token;
             Homepage_Load();
-          
-
-            
-
         }
     }
 }

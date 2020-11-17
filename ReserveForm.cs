@@ -14,10 +14,11 @@ namespace Boundary
 {
     public partial class ReserveForm : IForm
     {
-        public ReserveForm(ReserveCtrl controller)
+        public ReserveForm(ReserveCtrl ctrl)
         {
             InitializeComponent();
-            _ctrl = controller;
+            _ctrl = ctrl;
+            ReserveForm_Load();
         }
     }
 }

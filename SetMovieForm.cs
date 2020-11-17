@@ -14,17 +14,12 @@ namespace Boundary
 {
     public partial class SetMovieForm : IForm
     {
-        public SetMovieForm(EntryCtrl controller)
+        public SetMovieForm(EntryCtrl ctrl)
         {
             InitializeComponent();
-            _ctrl = controller;
+            _ctrl = ctrl;
             Setmovieform_Load();
         }
-        public SetMovieForm()
-        {
-            InitializeComponent();
-            Setmovieform_Load();
-
-        }
+       
     }
 }

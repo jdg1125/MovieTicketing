@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Boundary
 {
-    partial class Homepage: IForm
+    partial class Homepage : IForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -23,64 +23,98 @@ namespace Boundary
 
         private void InitializeComponent()
         {
+            this.WindowState = FormWindowState.Maximized;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "Homepage";
         }
-        
-         public void Homepage_Load()
-        {
-            Label Welcom = new Label();
-            Welcom.Text = "Welcome";
-            Welcom.AutoSize = true;
-            Welcom.Font = new Font("Sans Serif", 30);
-            Welcom.Location = new Point(700, 25);
-            this.Controls.Add(Welcom);
-            Button ReserveTickets = new Button();
-            ReserveTickets.Text = "Reserve Tickets";
-            ReserveTickets.Location = new Point(50, 200);
-            ReserveTickets.AutoSize = true;
-            ReserveTickets.BackColor = Color.White;
-            ReserveTickets.Padding = new Padding(6);
-            ReserveTickets.Font = new Font("Sans Serif", 30);
-            Button Logout = new Button();
-            Logout.Text = "Log out";
-            Logout.Location = new Point(1000, 25);
-            Logout.AutoSize = true;
-            Logout.BackColor = Color.White;
-            Logout.Padding = new Padding(6);
-            Logout.Font = new Font("Sans Serif", 15);
-            this.Controls.Add(Logout);
-            CustomizeHomepage(ReserveTickets);
 
-            
+        private void Homepage_Load()
+        {
+            Label welcome = new Label();
+            welcome.Text = "Welcome";
+            welcome.AutoSize = true;
+            welcome.Font = new Font("Sans Serif", 30);
+            welcome.Location = new Point(700, 25);
+            this.Controls.Add(welcome);
+
+            reserve = new Button();
+            reserve.Text = "Reserve Tickets";
+            reserve.Location = new Point(50, 200);
+            reserve.AutoSize = true;
+            reserve.BackColor = Color.White;
+            reserve.Padding = new Padding(6);
+            reserve.Font = new Font("Sans Serif", 30);
+
+            logout = new Button();
+            logout.Text = "Log out";
+            logout.Location = new Point(1000, 25);
+            logout.AutoSize = true;
+            logout.BackColor = Color.White;
+            logout.Padding = new Padding(6);
+            logout.Font = new Font("Sans Serif", 15);
+            this.Controls.Add(logout);
+
+            CustomizeHomepage();
+            AddEventHandlers();
+
         }
-        public void CustomizeHomepage(Button ReserveTicket ) {
-            if (_token == "E")
+        private void CustomizeHomepage()
+        {
+            if (_token[0] == 'e')
             {
-                ReserveTicket.Location = new Point(650, 200);
-            } 
-            this.Controls.Add(ReserveTicket);
-            if (_token == "A")
+                reserve.Location = new Point(650, 200);
+            }
+            this.Controls.Add(reserve);
+            if (_token[0] == 'a')
             {
-                Button Movie = new Button();
-                Movie.Text = "Set Movies";
-                Movie.Location = new Point(850, 200);
-                Movie.AutoSize = true;
-                Movie.BackColor = Color.White;
-                Movie.Padding = new Padding(6);
-                Movie.Font = new Font("Sans Serif", 30);
-                this.Controls.Add(Movie);
+                set = new Button();
+                set.Text = "Set Movies";
+                set.Location = new Point(850, 200);
+                set.AutoSize = true;
+                set.BackColor = Color.White;
+                set.Padding = new Padding(6);
+                set.Font = new Font("Sans Serif", 30);
+                this.Controls.Add(set);
 
             }
 
 
         }
 
+        private void AddEventHandlers()
+        {
+            logout.Click += new EventHandler(Logout);
+            reserve.Click += new EventHandler(Reserve);
+            if (set != null)
+                set.Click += new EventHandler(SetMovie);
+        }
+
+        private void Logout(object sender, EventArgs e)
+        {
+            LogoutCtrl logoutCtrl = new LogoutCtrl();
+            logoutCtrl.Initiate(this, _token);
+        }
+        private void Reserve(object sender, EventArgs e)
+        {
+            ReserveCtrl reserveCtrl = new ReserveCtrl();
+            reserveCtrl.Initiate(this, _token);
+        }
+        private void SetMovie(object sender, EventArgs e)
+        {
+            EntryCtrl entryCtrl = new EntryCtrl();
+            entryCtrl.Initiate(this, _token);
+        }
+        public override void Close()
+        {
+            this.Dispose();
+            (this as Form).Close();
+        }
+
         public override void Display(string s)
         {
-
+            //display text on form
         }
     }
 }
