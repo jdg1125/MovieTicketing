@@ -4,9 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Control;
+using System.Security.Cryptography;
+using Boundary;
 
-namespace Boundary
+namespace Control
 {
     public class LoginCtrl : IController
     { 

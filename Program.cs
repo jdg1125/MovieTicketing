@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Control;
+using Boundary;
 
 namespace MovieTicketing
 {
@@ -15,7 +16,9 @@ namespace MovieTicketing
             Application.SetCompatibleTextRenderingDefault(false);
             Startup context = new Startup();
             Application.Run(context.Form);
+            
         }
+    
 
     }
 

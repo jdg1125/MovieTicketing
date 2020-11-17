@@ -16,6 +16,7 @@ namespace Boundary
         public LogoutForm()
         {
             InitializeComponent();
+            LogoutForm_Load();
         }
     }
 }

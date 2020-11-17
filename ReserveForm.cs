@@ -8,14 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entity;
+using Control;
 
 namespace Boundary
 {
     public partial class ReserveForm : IForm
     {
-        public ReserveForm()
+        public ReserveForm(ReserveCtrl controller)
         {
             InitializeComponent();
+            _ctrl = controller;
         }
     }
 }

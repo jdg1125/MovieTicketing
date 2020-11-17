@@ -30,7 +30,17 @@ namespace Control
             LoginForm loginform = new LoginForm();
 
         }
+<<<<<<< HEAD
         
+=======
+
+        //SHA256 mySHA256 = SHA256.Create();
+        //byte[] hashvalue = mySHA256.ComputeHash(Encoding.ASCII.GetBytes("p@ssword"));
+        //StringBuilder sb = new StringBuilder();
+        //    foreach (byte b in hashvalue)
+        //        sb.AppendFormat("{0:X2}", b);
+        //    MessageBox.Show(sb.ToString());
+>>>>>>> master
     }
 }
 

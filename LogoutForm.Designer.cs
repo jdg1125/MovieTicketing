@@ -1,4 +1,7 @@
 ﻿using Control;
+using System;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Boundary
 {
@@ -26,7 +29,34 @@ namespace Boundary
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "LogoutForm";
         }
+        private void LogoutForm_Load()
+        {
+            Button Yes = new Button();
+            Yes.Text = "Yes";
+            Yes.Width = 600;
+            Yes.Height = 100;
+            Yes.Location = new Point(480, 300);
+            Yes.AutoSize = true;
+            Yes.BackColor = Color.White;
+            Yes.Padding = new Padding(6);
+            Yes.Font = new Font("Sans Serif", 30);
+            this.Controls.Add(Yes);
+            Label Logout = new Label();
+            Logout.Text = "Log out?";
+            Logout.AutoSize = true;
+            Logout.Location = new Point(700, 25);
+            Logout.Font = new Font("Sans Serif", 30);
+            this.Controls.Add(Logout);
 
-      
+
+
+
+
+
+
+        }
+
+
+
     }
 }

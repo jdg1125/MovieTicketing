@@ -35,23 +35,23 @@ namespace Control
             (_form as SetMovieForm).DisplayPoster(_poster.Path);
         }
 
-        public MovieEntry CreateEntry(string title, int theater, DateTime day, DateTime start, DateTime end)
+        public MovieEntry CreateEntry(string title, int theater, DateTime start, DateTime end)
         {
-            if (day != null && start != null & end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
-                return new MovieEntry(theater, title, new Showtime(day, start, end));
+            if (start != null && end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
+                return new MovieEntry(theater, title, new Showtime(start, end));
 
             return null;
         }
 
-        public void AddShowTime(MovieEntry entry, DateTime day, DateTime start, DateTime end)
+        public void AddShowTime(MovieEntry entry, DateTime start, DateTime end)
         {
-            if (day != null && start != null & end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
-                entry.AddTime(new Showtime(day, start, end));
+            if (start != null && end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
+                entry.AddTime(new Showtime(start, end));
         }
-        public void Submit(MovieEntry entry, DateTime day, DateTime start, DateTime end)
+        public void Submit(MovieEntry entry, DateTime start, DateTime end)
         {
-            if (day != null && start != null & end != null)
-                entry.AddTime(new Showtime(day, start, end));
+            if (start != null && end != null)
+                entry.AddTime(new Showtime(start, end));
 
             if (Validate(entry, out string msg))
                 _dbConn.Save(entry);
@@ -119,7 +119,7 @@ namespace Control
         {
             int len = entry.Showings.Count;
             Showtime time = entry.Showings[0];
-            TimeSpan duration = time.End - time.Start;
+            TimeSpan duration = (DateTime)time.End - (DateTime)time.Start;
             bool isValid = duration.TotalMinutes > 0;
 
             for (int i = 1; isValid && i < len; i++)  // make sure all showings have same duration > 0
@@ -136,8 +136,8 @@ namespace Control
                 
                 for(int j = i+1; isValid && j<len; j++ )
                 {
-                    tmpStart = entry.Showings[j].Start;
-                    tmpEnd = entry.Showings[j].End;
+                    tmpStart = (DateTime)entry.Showings[j].Start;
+                    tmpEnd = (DateTime)entry.Showings[j].End;
                     isValid = (tmpEnd < time.Start || tmpStart > time.End);  //OR because valid times are in the union of(tmp's that finish before time.Start, tmp's that start after time.End)
                 }
             }

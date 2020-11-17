@@ -8,15 +8,13 @@ namespace Entity
 {
     public class Showtime
     {
-        public DateTime Day { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set;  }
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set;  }
 
-        public Showtime(DateTime paramDay, DateTime paramStart, DateTime paramEnd)
+        public Showtime(DateTime? start, DateTime? end)
         {
-            Day = paramDay;
-            Start = paramStart;
-            End = paramEnd;
+            Start = start;
+            End = end;
         }
     }
 }
