@@ -14,7 +14,7 @@ namespace Boundary
     public class LoginCtrl : IController
     {
         
-        public override void Initiate(IForm sender, string token)
+        public override void Initiate(IForm sender)
         {
             Application.Run(_form);
         }

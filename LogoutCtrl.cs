@@ -12,14 +12,14 @@ namespace Control
     {
         private string _token;
 
-        public LogoutCtrl()
+        public LogoutCtrl(string token)
         {
             _dbConn = new DBConnector();
+            _token = token;
             _form = new LogoutForm(this);
         }
-        public override void Initiate(IForm sender, string token)
+        public override void Initiate(IForm sender)
         {
-            _token = token;
             sender.Close();
             _form.Show();
         }
@@ -32,15 +32,6 @@ namespace Control
             LoginForm loginform = new LoginForm();
 
         }
-
-
-        //SHA256 mySHA256 = SHA256.Create();
-        //byte[] hashvalue = mySHA256.ComputeHash(Encoding.ASCII.GetBytes("p@ssword"));
-        //StringBuilder sb = new StringBuilder();
-        //    foreach (byte b in hashvalue)
-        //        sb.AppendFormat("{0:X2}", b);
-        //    MessageBox.Show(sb.ToString());
-
     }
 }
 

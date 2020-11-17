@@ -93,18 +93,18 @@ namespace Boundary
 
         private void Logout(object sender, EventArgs e)
         {
-            LogoutCtrl logoutCtrl = new LogoutCtrl();
-            logoutCtrl.Initiate(this, _token);
+            LogoutCtrl logoutCtrl = new LogoutCtrl(_token);
+            logoutCtrl.Initiate(this);
         }
         private void Reserve(object sender, EventArgs e)
         {
-            ReserveCtrl reserveCtrl = new ReserveCtrl();
-            reserveCtrl.Initiate(this, _token);
+            ReserveCtrl reserveCtrl = new ReserveCtrl(_token);
+            reserveCtrl.Initiate(this);
         }
         private void SetMovie(object sender, EventArgs e)
         {
-            EntryCtrl entryCtrl = new EntryCtrl();
-            entryCtrl.Initiate(this, _token);
+            EntryCtrl entryCtrl = new EntryCtrl(_token);
+            entryCtrl.Initiate(this);
         }
         public override void Close()
         {

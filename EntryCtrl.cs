@@ -16,15 +16,16 @@ namespace Control
         private string _token;
 
         private Poster _poster;
-        public EntryCtrl()
+        public EntryCtrl(string token)
         {
             _dbConn = new DBConnector();
-            _form = new SetMovieForm(this);
+            _token = token;
+           _form = new SetMovieForm(this, _token);
+
         }
 
-        public override void Initiate(IForm sender, string token)
+        public override void Initiate(IForm sender)
         {
-            _token = token;
             sender.Close();
             _form.Show();
         }
@@ -48,7 +49,7 @@ namespace Control
             if (start != null && end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
                 entry.AddTime(new Showtime(start, end));
         }
-        public void Submit(MovieEntry entry, DateTime start, DateTime end)
+        public void Submit(MovieEntry entry, DateTime? start, DateTime? end)
         {
             if (start != null && end != null)
                 entry.AddTime(new Showtime(start, end));
@@ -59,7 +60,7 @@ namespace Control
             _form.Display(msg);
             _form.Close();
             Homepage homepage = new Homepage(_token);
-            // do we have to call a method in homepage to display it?
+            homepage.Show();
         }
 
         private bool Validate(MovieEntry entry, out string msg)
