@@ -299,5 +299,6 @@ namespace Control
             _cmd.CommandText = $"UPDATE UserSession SET LogoutTime='{DateTime.Now.ToString("G")}' WHERE User='{keys[0]}' AND LoginTime='{keys[1]}';";
             return _cmd.ExecuteNonQuery() != 0;
         }
+
     }
 }
