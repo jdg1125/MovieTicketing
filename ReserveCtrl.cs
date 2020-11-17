@@ -12,15 +12,15 @@ namespace Control
     {
         private string _token;
 
-        public override void Initiate(IForm sender, string token)
+        public override void Initiate(IForm sender)
         {
-            _token = token;
             sender.Close();
             _form.Show();
         }
 
-        public ReserveCtrl()
+        public ReserveCtrl(string token)
         {
+            _token = token;
             _dbConn = new DBConnector();
             _form = new ReserveForm(this);
         }

@@ -22,126 +22,169 @@ namespace Boundary
 
         private void InitializeComponent()
         {
-            this.WindowState = FormWindowState.Maximized;
+            this.MaximizeBox = false;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "SetMovieForm";
+            this.ClientSize = new System.Drawing.Size(1000, 1000);
+            this.Text = "Set Movie Form";
         }
         private void Setmovieform_Load()
         {
-            Label Setmovies = new Label();
-            Setmovies.Text = "Set Movies";
-            Setmovies.Font = new Font("Sans Serif", 30);
-            Setmovies.AutoSize = true;
-            Setmovies.Location = new Point(600, 25);
-            this.Controls.Add(Setmovies);
-            Button Logout = new Button();
-            Logout.Text = "Log out";
-            Logout.AutoSize = true;
-            Logout.Location = new Point(1100, 25);
-            Logout.BackColor = Color.White;
-            Logout.Padding = new Padding(6);
-            Logout.Font = new Font("Sans Serif", 15);
-            this.Controls.Add(Logout);
-            TextBox Title = new TextBox();
-            Title.Location = new Point(175, 100);
-            Title.BackColor = Color.White;
-            Title.Width = 1000;
-            Title.BorderStyle = BorderStyle.FixedSingle;
-            Title.Font = new Font("Sans Serif", 30);
-            this.Controls.Add(Title);
-            TextBox Titlelabel = new TextBox();
-            Titlelabel.Text = "Title";
-            Titlelabel.Location = new Point(75, 100);
-            Titlelabel.BackColor = Color.Gray;
-            Titlelabel.BorderStyle = BorderStyle.FixedSingle;
-            Titlelabel.ReadOnly = true;
-            Titlelabel.Font = new Font("Sans Serif", 30);
-            this.Controls.Add(Titlelabel);
-            ComboBox Theater = new ComboBox();
-            Theater.Text = "Enter Theater";
-            Theater.Width = 200;
-            Theater.Height = 200;
-            Theater.Items.Add("Theater1");
-            Theater.Items.Add("Theater2");
-            Theater.Items.Add("Theater3");
-            Theater.Location = new Point(400, 100);
-            this.Controls.Add(Theater);
-            PictureBox movieposter = new PictureBox();
-            movieposter.Location = new Point(100, 200);
-            movieposter.Size = new Size(400, 500);
-            movieposter.ImageLocation = @"C:\Users\mags0\Downloads\marvel.jpg";
-            this.Controls.Add(movieposter);
-            DateTimePicker Start = new DateTimePicker();
-            Start.Format = DateTimePickerFormat.Custom;
-            Start.CustomFormat = "HH:mm tt";
-            Start.ShowUpDown = true;
-            Start.Location = new Point(800, 250);
-            Start.Width = 100;
-            this.Controls.Add(Start);
-            DateTimePicker End = new DateTimePicker();
-            End.Format = DateTimePickerFormat.Custom;
-            End.CustomFormat = "HH:mm tt";
-            End.ShowUpDown = true;
-            End.Location = new Point(915, 250);
-            End.Width = 100;
-            this.Controls.Add(End);
-            DateTimePicker Date = new DateTimePicker();
-            Date.Value = DateTime.Today;
-            Date.Location = new Point(625, 350);
-            Date.Font = new Font("Sans Serif", 10);
-            Date.Width = 250;
-            this.Controls.Add(Date);
-            Button showtime = new Button();
-            showtime.Text = "Add New Showtime";
-            showtime.AutoSize = true;
-            showtime.Location = new Point(600, 400);
-            showtime.BackColor = Color.White;
-            showtime.Padding = new Padding(6);
-            showtime.Font = new Font("Sans Serif", 25);
-            this.Controls.Add(showtime);
-            Button Submit = new Button();
-            Submit.Text = "Submit";
-            Submit.AutoSize = true;
-            Submit.Location = new Point(700, 400);
-            Submit.BackColor = Color.White;
-            Submit.Padding = new Padding(6);
-            Submit.Font = new Font("Sans Serif", 20);
-            this.Controls.Add(Submit);
-            TextBox pickd = new TextBox();
-            pickd.Text = "Day";
-            pickd.Location = new Point(525, 350);
-            pickd.Font = new Font("Sans Serif", 10);
-            pickd.BackColor = Color.White;
-            pickd.ForeColor = Color.Black;
-            pickd.BorderStyle = BorderStyle.FixedSingle;
-            pickd.Width = 100;
-            this.Controls.Add(pickd);
-            TextBox picks = new TextBox();
-            picks.Text = "Start time";
-            picks.Location = new Point(800, 200);
-            picks.Font = new Font("Sans Serif", 10);
-            picks.BackColor = Color.White;
-            picks.ForeColor = Color.Black;
-            picks.BorderStyle = BorderStyle.FixedSingle;
-            this.Controls.Add(picks);
-            TextBox picke = new TextBox();
-            picke.Text = "End time";
-            picke.Location = new Point(900, 200);
-            picke.Font = new Font("Sans Serif", 10);
-            picke.BackColor = Color.White;
-            picke.ForeColor = Color.Black;
-            picke.BorderStyle = BorderStyle.FixedSingle;
-            this.Controls.Add(picke);
-            Label Showtimes = new Label();
-            Showtimes.Text = "Showtimes";
-            Showtimes.Location = new Point(800, 800);
-            Showtimes.Font = new Font("Sans Serif", 25);
-            Showtimes.AutoSize = true;
-            this.Controls.Add(Showtimes);
+            Label setmovies = new Label();
+            setmovies.Text = "Set Movies";
+            setmovies.Font = new Font("Sans Serif", 30);
+            setmovies.AutoSize = true;
+            setmovies.Location = new Point(ClientSize.Width / 2 - setmovies.Width / 2, 25);
+            this.Controls.Add(setmovies);
+
+            logout = new Button();
+            logout.Text = "Log out";
+            logout.AutoSize = true;
+            logout.Location = new Point(ClientSize.Width - 200, 25);
+            logout.BackColor = Color.White;
+            logout.Padding = new Padding(6);
+            logout.Font = new Font("Sans Serif", 15);
+            this.Controls.Add(logout);
+
+            titleBox = new TextBox();
+            titleBox.Location = new Point(220, 100);
+            titleBox.BackColor = Color.White;
+            titleBox.Width = ClientSize.Width - 300;
+            titleBox.BorderStyle = BorderStyle.FixedSingle;
+            titleBox.Font = new Font("Sans Serif", 30);
+            this.Controls.Add(titleBox);
+
+            Label titleLabel = new Label();
+            titleLabel.Text = "Movie title   ";
+            titleLabel.Location = new Point(75, 110);
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Sans Serif", 20);
+            this.Controls.Add(titleLabel);
+
+            theaters = new ComboBox();
+            theaters.Text = "Select a theater  ";
+            theaters.Width = 250;
+            theaters.Font = new Font("Sans Serif", 20);
+            for (int i = 1; i < 13; i++)
+                theaters.Items.Add(i);
+            theaters.Location = new Point(2 * ClientSize.Width / 3, 350);
+            this.Controls.Add(theaters);
+
+            posterArea = new PictureBox();
+            posterArea.Location = new Point(200, 200);
+            posterArea.Size = new Size(250, 320);
+            this.Controls.Add(posterArea);
+
+            start = new DateTimePicker();
+            start.Format = DateTimePickerFormat.Custom;
+            start.CustomFormat = "HH:mm tt";
+            start.ShowCheckBox = true;
+            start.Checked = false;
+            start.ShowUpDown = true;
+            start.Font = new Font("Sans Serif", 14);
+            start.Location = new Point(ClientSize.Width - start.Width - 80, 11 * ClientSize.Height / 16 - 50);
+            start.Width = 150;
+            this.Controls.Add(start);
+
+            end = new DateTimePicker();
+            end.Format = DateTimePickerFormat.Custom;
+            end.CustomFormat = "HH:mm tt";
+            end.ShowCheckBox = true;
+            end.Checked = false;
+            end.ShowUpDown = true;
+            end.Font = new Font("Sans Serif", 14);
+            end.Location = new Point(ClientSize.Width - end.Width - 80, 11 * ClientSize.Height / 16);
+            end.Width = 150;
+            this.Controls.Add(end);
+
+            date = new DateTimePicker();
+            date.Value = DateTime.Today;
+            date.ShowCheckBox = true;
+            date.Checked = false;
+            date.Location = new Point(150, 2 * ClientSize.Height / 3);
+            date.Font = new Font("Sans Serif", 16);
+            date.Width = 400;
+            this.Controls.Add(date);
+
+            addNew = new Button();
+            addNew.Text = "Add New";
+            addNew.AutoSize = true;
+            addNew.Location = new Point(ClientSize.Width / 2 - addNew.Width / 2, 3 * ClientSize.Height / 4);
+            addNew.BackColor = Color.White;
+            addNew.Padding = new Padding(6);
+            addNew.Font = new Font("Sans Serif", 25);
+            addNew.Enabled = false;
+            this.Controls.Add(addNew);
+
+            submit = new Button();
+            submit.Text = "Submit";
+            submit.AutoSize = true;
+            submit.Location = new Point(ClientSize.Width / 2 - submit.Width / 2, ClientSize.Height - 100);
+            submit.BackColor = Color.White;
+            submit.Padding = new Padding(6);
+            submit.Font = new Font("Sans Serif", 20);
+            submit.Enabled = false;
+            this.Controls.Add(submit);
+
+            Label dateLabel = new Label();
+            dateLabel.Text = "Day";
+            dateLabel.Location = new Point(85, 2 * ClientSize.Height / 3 + 3);
+            dateLabel.AutoSize = true;
+            dateLabel.Font = new Font("Sans Serif", 16);
+            dateLabel.Width = 100;
+            this.Controls.Add(dateLabel);
+
+            Label startLabel = new Label();
+            startLabel.Text = "Start Time";
+            startLabel.AutoSize = true;
+            startLabel.Location = new Point(ClientSize.Width - start.Width - 150 - startLabel.Width, 11 * ClientSize.Height / 16 - 50);
+            startLabel.Font = new Font("Sans Serif", 16);
+            this.Controls.Add(startLabel);
+
+            Label endLabel = new Label();
+            endLabel.Text = "End Time";
+            endLabel.AutoSize = true;
+            endLabel.Location = new Point(ClientSize.Width - end.Width - 150 - endLabel.Width, 11 * ClientSize.Height / 16);
+            endLabel.Font = new Font("Sans Serif", 16);
+            this.Controls.Add(endLabel);
+
+            Label showtimes = new Label();
+            showtimes.Text = "Showtimes";
+            showtimes.Location = new Point(ClientSize.Width / 2 - showtimes.Width / 2, 7 * ClientSize.Height / 12);
+            showtimes.Font = new Font("Sans Serif", 20);
+            showtimes.AutoSize = true;
+            this.Controls.Add(showtimes);
+
+            AddEventHandlers();
         }
 
+        private void AddEventHandlers()
+        {
+            logout.Click += new EventHandler(Logout);
+            submit.Click += new EventHandler(Submit);
+            addNew.Click += new EventHandler(AddNew);
+            theaters.DropDownClosed += new EventHandler(SelectThr);
+        }
+
+        private void Logout(object sender, EventArgs e)
+        {
+            LogoutCtrl logoutCtrl = new LogoutCtrl(_token);
+            logoutCtrl.Initiate(this);
+        }
+
+        private void Submit(object sender, EventArgs e)
+        {
+            DateTime? date = null, start = null, end = null;
+
+            if (this.date.Checked && this.start.Checked && this.end.Checked)
+            {
+                date = this.date.Value.Subtract(this.date.Value.TimeOfDay); //set date's time element to 00:00 to avoid incrementing TimeOfDay of start, end
+                start = ((DateTime)date).Add(this.start.Value.TimeOfDay);
+                end = ((DateTime)date).Add(this.end.Value.TimeOfDay);
+            }
+
+            (_ctrl as EntryCtrl).Submit(_entryDraft, start, end);
+        }
         public override void Close()
         {
             this.Dispose();
@@ -150,12 +193,54 @@ namespace Boundary
 
         public override void Display(string msg)
         {
-            //display text on form
+            
         }
 
         public void DisplayPoster(string path)
         {
-            //Use API of PictureBox element to render picture
+            posterArea.ImageLocation = path;
+            posterArea.Refresh();
         }
+
+        private void SelectThr(object sender, EventArgs e)
+        {
+            string title;
+
+            if ((title = titleBox.Text) != "")
+            {
+                (_ctrl as EntryCtrl).Select(title);
+                addNew.Enabled = true;
+            }
+        }
+
+        private void AddNew(object sender, EventArgs e)
+        {
+            if (!this.date.Checked || !this.start.Checked || !this.end.Checked)
+                return;
+
+            DateTime date = this.date.Value.Subtract(this.date.Value.TimeOfDay); //set date to midnight
+            DateTime start = date.Add(this.start.Value.TimeOfDay);
+            DateTime end = date.Add(this.end.Value.TimeOfDay);
+
+            if (_entryDraft == null)
+                _entryDraft = (_ctrl as EntryCtrl).CreateEntry(titleBox.Text, theaters.SelectedIndex + 1, start, end);
+            else
+                (_ctrl as EntryCtrl).AddShowTime(_entryDraft, start, end);
+
+            if (_entryDraft.Showings.Count > 0)
+                submit.Enabled = true;
+
+            //foreach (var showtime in _entryDraft.Showings)
+            //    MessageBox.Show(_entryDraft.Title + " " + _entryDraft.Theatre + " " + ((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss") +
+            //        " " + ((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss"));
+
+            RefreshTimesMenu();
+        }
+
+        private void RefreshTimesMenu()
+        {
+            date.Checked = start.Checked = end.Checked = false;
+        }
+
     }
 }
