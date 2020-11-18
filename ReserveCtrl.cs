@@ -31,9 +31,6 @@ namespace Control
             (_form as ReserveForm).Display(entries);
         }
 
-        public void Select(MovieEntry entry) =>
-            (_form as ReserveForm).DisplayPoster(entry.PosterPath);
-
         public void Submit(MovieEntry entry, int seats)
         {
             Reservation res = new Reservation(entry, seats);
@@ -44,13 +41,13 @@ namespace Control
             _form.Display(msg);
             _form.Close();
             Homepage homepage = new Homepage(_token);
-            //need to explicitly display homepage??
+            homepage.Show();
         }
 
         private bool Validate(Reservation res, out string msg)
         {
-            bool isValid = res.NumSeats <= res.MovieEntry.SeatsAvailable;
-            msg = isValid ? "Reservation made successfully. Your confirmation number: " : "";
+            bool isValid = res.NumSeats>0 && res.NumSeats <= res.MovieEntry.SeatsAvailable;
+            msg = isValid ? "Reservation made successfully. Your confirmation number: " : "Invalid number of seats entered. Your reservation could not be placed.";
             return isValid;
         }
     }

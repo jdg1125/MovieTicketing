@@ -13,6 +13,9 @@ namespace Boundary
 {
     public partial class LogoutForm : IForm
     {
+        private Button yes;
+        private Label message;
+
         public LogoutForm(LogoutCtrl ctrl)
         {
             InitializeComponent();

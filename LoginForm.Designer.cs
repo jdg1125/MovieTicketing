@@ -22,16 +22,17 @@ namespace Boundary
 
         private void InitializeComponent()
         {
-            this.WindowState = FormWindowState.Maximized;
+            this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 600);
             this.Text = "LoginForm";
         }
         private void LoginForm_Load()
         {
             submitBtn = new Button();
-            submitBtn.Location = new Point(700, 350);
+            submitBtn.Location = new Point(ClientSize.Width/2 -submitBtn.Width + 10, ClientSize.Height-100);
             submitBtn.Text = "Submit";
             submitBtn.AutoSize = true;
             submitBtn.BackColor = Color.White;
@@ -39,29 +40,29 @@ namespace Boundary
             submitBtn.Font = new Font("Sans Serif", 20);
             this.Controls.Add(submitBtn);
 
-            Label Main = new Label();
-            Main.AutoSize = true;
-            Main.Text = "Movie Theater Login";
-            Main.Location = new Point(700, 20);
-            Main.Font = new Font("Sans Serif", 30);
-            this.Controls.Add(Main);
+            Label header = new Label();
+            header.AutoSize = true;
+            header.Text = "Movie Theater Login";
+            header.Location = new Point(ClientSize.Width/2 - 2*header.Width +10, 20);
+            header.Font = new Font("Sans Serif", 30);
+            this.Controls.Add(header);
 
-            Label Username = new Label();
-            Username.AutoSize = true;
-            Username.Text = "Username";
-            Username.Location = new Point(698, 100);
-            Username.Font = new Font("Sans Serif", 30);
-            this.Controls.Add(Username);
+            Label nameLabel = new Label();
+            nameLabel.AutoSize = true;
+            nameLabel.Text = "Username";
+            nameLabel.Location = new Point(ClientSize.Width/2 - nameLabel.Width+15, 120);
+            nameLabel.Font = new Font("Sans Serif", 20);
+            this.Controls.Add(nameLabel);
 
-            Label Password = new Label();
-            Password.AutoSize = true;
-            Password.Text = "Password";
-            Password.Location = new Point(698, 200);
-            Password.Font = new Font("Sans Serif", 30);
-            this.Controls.Add(Password);
+            Label pwLabel = new Label();
+            pwLabel.AutoSize = true;
+            pwLabel.Text = "Password";
+            pwLabel.Location = new Point(ClientSize.Width/2 - pwLabel.Width+15, 250);
+            pwLabel.Font = new Font("Sans Serif", 20);
+            this.Controls.Add(pwLabel);
 
             usernameBox = new TextBox();
-            usernameBox.Location = new Point(700, 150);
+            usernameBox.Location = new Point(ClientSize.Width/2 - usernameBox.Width/2 - 80, 175);
             usernameBox.ForeColor = Color.Black;
             usernameBox.BackColor = Color.White;
             usernameBox.BorderStyle = BorderStyle.FixedSingle;
@@ -72,7 +73,7 @@ namespace Boundary
 
             passwordBox = new TextBox();
             passwordBox.Font = new Font("Sans Serif", 30);
-            passwordBox.Location = new Point(700, 250);
+            passwordBox.Location = new Point(ClientSize.Width / 2 - passwordBox.Width / 2 - 80, 305);
             passwordBox.BackColor = Color.White;
             passwordBox.ForeColor = Color.Black;
             passwordBox.BorderStyle = BorderStyle.FixedSingle;
@@ -80,7 +81,14 @@ namespace Boundary
             passwordBox.Width = 250;
             passwordBox.PasswordChar = '*';
             this.Controls.Add(passwordBox);
-            
+
+            message = new Label();
+            message.Location = new Point(ClientSize.Width/2 - 110, ClientSize.Height - 180);
+            message.Font = new Font("Sans Serif", 16);
+            message.ForeColor = Color.Red;
+            message.AutoSize = true;
+            this.Controls.Add(message);
+
             AddEventHandlers();
         }
 
@@ -95,8 +103,8 @@ namespace Boundary
 
         public override void Display(string msg)
         {
-            MessageBox.Show("here");
-            //display the text on the form   
+            message.Text = msg;
+            message.Refresh();
         }
 
         private void Submit(object sender, EventArgs e)

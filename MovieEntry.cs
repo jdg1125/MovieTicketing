@@ -43,19 +43,31 @@ namespace Entity
 
         public override string ToString()
         {
+            string delimiter = " / ";
             StringBuilder sb = new StringBuilder();
-            sb.Append("id: " + Id);
-            sb.Append("\ntheater: " + Theatre);
-            sb.Append("\n" + Title);
-            sb.Append("\nstart: " + Time.Start.ToString());
-            sb.Append("\nend: " + Time.End.ToString());
-            sb.Append("\nseats: " + SeatsAvailable);
-            sb.Append("\n" + PosterPath);
-
+            sb.Append(Title);
+            sb.Append(delimiter);
+            sb.Append(((DateTime)Time.Start).ToString("hh:mm tt"));
+            sb.Append(delimiter);
+            sb.Append(SeatsAvailable);
             return sb.ToString();
-
-
-
         }
+
+        //public override string ToString()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append("id: " + Id);
+        //    sb.Append("\ntheater: " + Theatre);
+        //    sb.Append("\n" + Title);
+        //    sb.Append("\nstart: " + Time.Start.ToString());
+        //    sb.Append("\nend: " + Time.End.ToString());
+        //    sb.Append("\nseats: " + SeatsAvailable);
+        //    sb.Append("\n" + PosterPath);
+
+        //    return sb.ToString();
+
+
+
+        //}
     }
 }

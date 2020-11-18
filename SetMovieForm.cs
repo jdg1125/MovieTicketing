@@ -28,6 +28,8 @@ namespace Boundary
 
         private DateTimePicker date, start, end;
 
+        private Label message;
+
         public SetMovieForm(EntryCtrl ctrl, string token)
         {
             InitializeComponent();

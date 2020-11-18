@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using Boundary;
 
@@ -26,11 +27,21 @@ namespace Control
 
         public void Submit()
         {
-            _dbConn.RecordLogout(_token);
-            (_form as LogoutForm).Display("You have successfully logged out");
-            _form.Close();
-            LoginForm loginform = new LoginForm();
+            if(_dbConn.RecordLogout(_token))   //this should always be true - inside if to check that assumption
+                (_form as LogoutForm).Display("You have successfully logged out");
 
+            _form.Close();
+
+            Form loginForm = Application.OpenForms[0];
+            Label oneToErase;
+
+            foreach (var field in loginForm.Controls)
+                if (field is TextBox)
+                    (field as TextBox).Text = null;
+                else if (field is Label && (oneToErase = (field as Label)).ForeColor==Color.Red)  //hide error messages 
+                    oneToErase.Text = null;
+
+            loginForm.Show();
         }
     }
 }
