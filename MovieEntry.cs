@@ -45,6 +45,8 @@ namespace Entity
         {
             string delimiter = " / ";
             StringBuilder sb = new StringBuilder();
+            sb.Append(Theatre);
+            sb.Append(delimiter);
             sb.Append(Title);
             sb.Append(delimiter);
             sb.Append(((DateTime)Time.Start).ToString("hh:mm tt"));

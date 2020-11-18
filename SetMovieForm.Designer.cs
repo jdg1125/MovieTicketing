@@ -2,6 +2,7 @@
 using Entity;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -70,6 +71,7 @@ namespace Boundary
             for (int i = 1; i < 13; i++)
                 theaters.Items.Add(i);
             theaters.Location = new Point(2 * ClientSize.Width / 3, 350);
+            theaters.DropDownStyle = ComboBoxStyle.DropDownList;
             this.Controls.Add(theaters);
 
             posterArea = new PictureBox();
@@ -110,6 +112,7 @@ namespace Boundary
             date.Value = DateTime.Today;
             date.ShowCheckBox = true;
             date.Checked = false;
+            date.MinDate = DateTime.Today;
             date.Location = new Point(150, 2 * ClientSize.Height / 3);
             date.Font = new Font("Sans Serif", 16);
             date.Width = 400;
@@ -192,6 +195,9 @@ namespace Boundary
                 end = ((DateTime)date).Add(this.end.Value.TimeOfDay);
             }
 
+            _entryDraft.Title = titleBox.Text; //update title and theater if user changed after entry was created
+            _entryDraft.Theatre = theaters.SelectedIndex + 1;
+
             (_ctrl as EntryCtrl).Submit(_entryDraft, start, end);
         }
         public override void Close()
@@ -209,7 +215,12 @@ namespace Boundary
 
         public void DisplayPoster(string path)
         {
-            posterArea.ImageLocation = path;
+            string cd = Environment.CurrentDirectory;            
+            DirectoryInfo[] folders = Directory.GetParent(cd).Parent.GetDirectories("Posters");
+            cd =folders[0].FullName;
+            MessageBox.Show(cd+path);
+
+            posterArea.ImageLocation = cd + path;
             posterArea.Refresh();
         }
 
@@ -255,3 +266,11 @@ namespace Boundary
 
     }
 }
+
+/*
+ * Rectangle screen = Screen.PrimaryScreen.WorkingArea;
+    int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
+    int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
+    this.Location = new Point((screen.Width - w) / 2, (screen.Height - h) / 2);
+    this.Size = new Size(w, h);
+*/
