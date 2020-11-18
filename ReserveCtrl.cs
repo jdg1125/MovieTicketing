@@ -22,7 +22,7 @@ namespace Control
         {
             _token = token;
             _dbConn = new DBConnector();
-            _form = new ReserveForm(this);
+            _form = new ReserveForm(this, token);
         }
 
         public void Select(DateTime date)

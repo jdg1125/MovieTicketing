@@ -28,8 +28,9 @@ namespace Boundary
             this.StartPosition = FormStartPosition.CenterScreen;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 1000);
+            this.ClientSize = new System.Drawing.Size(1000, 800);
             this.Text = "Reserve Form";
+            this.AutoScroll = true;
         }
         private void ReserveForm_Load()
         {
@@ -137,10 +138,16 @@ namespace Boundary
 
         private void AddEventHandlers()
         {
+            logout.Click += new EventHandler(Logout);
             search.Click += new EventHandler(SelectDate);
             movieSelector.DropDownClosed += new EventHandler(SelectMovie);
             reserve.Click += new EventHandler(Submit);
             enterSeats.KeyPress += new KeyPressEventHandler(AllowOnlyNumbers);
+        }
+        private void Logout(object sender, EventArgs e)
+        {
+            LogoutCtrl logoutCtrl = new LogoutCtrl(_token);
+            logoutCtrl.Initiate(this);
         }
 
         private void SelectDate(object sender, EventArgs e)

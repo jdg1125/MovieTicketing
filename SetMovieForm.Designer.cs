@@ -28,8 +28,10 @@ namespace Boundary
             this.StartPosition = FormStartPosition.CenterScreen;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 1000);
+            this.ClientSize = new System.Drawing.Size(1000, 800);
             this.Text = "Set Movie Form";
+            this.AutoScroll = true;
+
         }
         private void Setmovieform_Load()
         {
