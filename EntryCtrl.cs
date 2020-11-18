@@ -20,7 +20,7 @@ namespace Control
         {
             _dbConn = new DBConnector();
             _token = token;
-           _form = new SetMovieForm(this, _token);
+            _form = new SetMovieForm(this, _token);
 
         }
 
@@ -32,22 +32,19 @@ namespace Control
 
         public void Select(string title)
         {
-            _poster = _dbConn.GetPoster(title);
+            if ((_poster = _dbConn.GetPoster(title)) == null)
+                return;
             (_form as SetMovieForm).DisplayPoster(_poster.Path);
         }
 
         public MovieEntry CreateEntry(string title, int theater, DateTime start, DateTime end)
         {
-            if (start != null && end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
-                return new MovieEntry(theater, title, new Showtime(start, end));
-
-            return null;
+            return new MovieEntry(theater, title, new Showtime(start, end));
         }
 
         public void AddShowTime(MovieEntry entry, DateTime start, DateTime end)
         {
-            if (start != null && end != null)   //if we can grey out button on form until 3 values are selected, we can remove this error check
-                entry.AddTime(new Showtime(start, end));
+            entry.AddTime(new Showtime(start, end));
         }
         public void Submit(MovieEntry entry, DateTime? start, DateTime? end)
         {
@@ -66,27 +63,21 @@ namespace Control
         private bool Validate(MovieEntry entry, out string msg)
         {
 
-            if (!CompletionCheck(entry, out msg))
+            if (!PosterCheck(entry, out msg))
                 return false;
 
             if (!TitleCheck(entry, out msg))
                 return false;
 
             return ShowingsCheck(entry, out msg);
-           
+
         }
 
-        private bool CompletionCheck(MovieEntry entry, out string msg)
+        private bool PosterCheck(MovieEntry entry, out string msg)
         {
-            if (entry==null || entry.Showings.Count == 0 || _poster == null) 
+            if ((_poster = _dbConn.GetPoster(entry.Title)) == null) //user may have changed title without changing theater - need to update poster
             {
-                if (entry == null)                                      //remove this condition if grey out buttons eliminates null entry possibility
-                    msg = "Entry was null. Nothing to validate.";
-                else
-                {
-                    msg = "Invalid entry. ";
-                    msg += (_poster == null) ? "Database does not contain a matching movie poster." : "You must supply at least one show time.";
-                }
+                msg = "Invalid entry. Database does not contain a matching movie poster.";
                 return false;
             }
 
@@ -130,12 +121,12 @@ namespace Control
                     isValid = false;
             }
 
-            for(int i=0; isValid && i<len; i++)    // check for concurrent showings
+            for (int i = 0; isValid && i < len; i++)    // check for concurrent showings
             {
                 time = entry.Showings[i];
                 DateTime tmpStart, tmpEnd;
-                
-                for(int j = i+1; isValid && j<len; j++ )
+
+                for (int j = i + 1; isValid && j < len; j++)
                 {
                     tmpStart = (DateTime)entry.Showings[j].Start;
                     tmpEnd = (DateTime)entry.Showings[j].End;

@@ -77,24 +77,23 @@ namespace Control
 
         private void AddPosters()
         {
-            string common = "Insert into Poster(MovieTitle, ImgPath) VALUES (";
+            string common = "Insert into Poster(MovieTitle, ImgPath) VALUES ('";
 
             string cd = Environment.CurrentDirectory;
             DirectoryInfo[] folders = Directory.GetParent(cd).Parent.GetDirectories("Posters");
-            FileInfo[] paths = folders[0].GetFiles();  //list of poster paths
+            FileInfo[] fileNames = folders[0].GetFiles();  
 
-            StreamReader readTitles = new StreamReader("movieTitles.txt"); //list of movie titles associated with poster paths
+            StreamReader readTitles = new StreamReader("movieTitles.txt"); 
             StringBuilder sb = new StringBuilder();
 
             string title = readTitles.ReadLine();
             int result = 0;
-            for (int i = 0; i < paths.Length && title != null; i++)
+            for (int i = 0; i < fileNames.Length && title != null; i++)
             {
                 sb.Append(common);
-                sb.Append("'");
-                sb.Append(title);
+                sb.Append(title.Trim());
                 sb.Append("', '");
-                sb.Append(paths[i].DirectoryName + "\\" + paths[i]);
+                sb.Append("\\" + fileNames[i]);
                 sb.Append("');");
                 _cmd.CommandText = sb.ToString();
                 result += _cmd.ExecuteNonQuery();
@@ -206,7 +205,7 @@ namespace Control
         public List<MovieEntry> GetMovieEntries(DateTime date)
         {
             List<MovieEntry> results = new List<MovieEntry>();
-            _cmd.CommandText = $"SELECT Id, Theater, Title, Start, End, CurrentCapacity, ImgPath FROM MovieEntry INNER JOIN Poster ON Poster.MovieTitle=MovieEntry.Title WHERE Date='{date.Date.ToString("d")}'";
+            _cmd.CommandText = $"SELECT Id, Theater, Title, Start, End, CurrentCapacity, ImgPath FROM MovieEntry INNER JOIN Poster ON Poster.MovieTitle=MovieEntry.Title WHERE Date='{date.Date.ToString("d")}';";
             _reader = _cmd.ExecuteReader();
 
             while (_reader.Read())
@@ -223,10 +222,6 @@ namespace Control
 
         public long Save(Reservation res)
         {
-            /*Assuming that only one user is using system at once, 
-             * no concurrent access implies we don't have to check 
-             * if res.MovieEntry's CurrentCapacity can be safely decremented by NumSeats 
-             */
             _cmd.CommandText = $"INSERT INTO Reservation(Movie, NumSeats) VALUES ({res.MovieEntry.Id}, {res.NumSeats});";
             _cmd.ExecuteNonQuery();
 

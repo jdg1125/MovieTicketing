@@ -5,6 +5,7 @@ using System;
 using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Boundary
 {
@@ -83,7 +84,8 @@ namespace Boundary
             this.Controls.Add(movieLabel);
 
             movieSelector = new ComboBox();
-            movieSelector.Text = "Movie/Time/Avaiable Seats";
+            movieSelector.Text = "Movie/Time/Available Seats";
+            movieSelector.DropDownStyle = ComboBoxStyle.DropDownList;
             movieSelector.Width = 400;
             movieSelector.Font = new Font("Sans Serif", 15);
             movieSelector.Location = new Point(ClientSize.Width / 2, 5 * ClientSize.Height / 12);
@@ -110,6 +112,7 @@ namespace Boundary
             reserve.BackColor = Color.White;
             reserve.Padding = new Padding(6);
             reserve.Font = new Font("Sans Serif", 20);
+            reserve.Enabled = false;
             this.Controls.Add(reserve);
 
             Label seatsLabel = new Label();
@@ -154,7 +157,9 @@ namespace Boundary
             foreach (var entry in entries)
                 movieSelector.Items.Add(entry.ToString());
 
-            movieSelector.Refresh();            
+            movieSelector.Refresh();
+            
+            reserve.Enabled = entries.Count>0 ? true : false;
         }
 
         private void SelectMovie(object sender, EventArgs e) => DisplayPoster();
@@ -163,7 +168,12 @@ namespace Boundary
         {
             if (movieSelector.SelectedIndex < 0)
                 return;
-            posterArea.ImageLocation = _movies[movieSelector.SelectedIndex].PosterPath;
+            
+            string cd = Environment.CurrentDirectory;
+            DirectoryInfo[] folders = Directory.GetParent(cd).Parent.GetDirectories("Posters");
+            cd = folders[0].FullName;
+
+            posterArea.ImageLocation = cd + _movies[movieSelector.SelectedIndex].PosterPath;
             posterArea.Refresh();
         }
 
@@ -174,7 +184,9 @@ namespace Boundary
         private void Submit(object sender, EventArgs e)
         {
             int.TryParse(enterSeats.Text, out int numSeats);
-            (_ctrl as ReserveCtrl).Submit(_movies[movieSelector.SelectedIndex], numSeats);
+            int index;
+            if((index=movieSelector.SelectedIndex)>=0)
+                (_ctrl as ReserveCtrl).Submit(_movies[movieSelector.SelectedIndex], numSeats);
         }
         public override void Close()
         {
