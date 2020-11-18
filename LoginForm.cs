@@ -15,16 +15,13 @@ namespace Boundary
     {
         private Button submitBtn;
         private TextBox usernameBox, passwordBox;
+        private Label message;
 
         public LoginForm(LoginCtrl ctrl)
         {
             InitializeComponent();
             _ctrl = ctrl;
             LoginForm_Load();
-        }
-        public LoginForm()
-        {
-
         }
     }
 }

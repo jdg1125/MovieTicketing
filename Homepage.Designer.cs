@@ -79,8 +79,6 @@ namespace Boundary
                 this.Controls.Add(set);
 
             }
-
-
         }
 
         private void AddEventHandlers()
@@ -112,9 +110,6 @@ namespace Boundary
             (this as Form).Close();
         }
 
-        public override void Display(string s)
-        {
-            //display text on form
-        }
+        public override void Display(string s) { }
     }
 }

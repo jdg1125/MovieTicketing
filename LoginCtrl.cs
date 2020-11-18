@@ -13,7 +13,7 @@ namespace Boundary
 {
     public class LoginCtrl : IController
     {
-        
+
         public override void Initiate(IForm sender)
         {
             Application.Run(_form);
@@ -24,43 +24,42 @@ namespace Boundary
             _dbConn = new DBConnector();
         }
 
-        public void Submit(string _username, string _password)
+        public void Submit(string username, string password)
         {
-            string hashpw = Hash(_password);
+            string hashpw = Hash(password);
 
-            bool isValid = Sanitize(_username, hashpw);
+            bool isValid = Sanitize(username, hashpw);
             string _token = null;
 
             if (isValid)
             {
-                _token = _dbConn.Authenticate(_username, hashpw);
+                _token = _dbConn.Authenticate(username, hashpw);
 
                 if (_token == "")
                 {
-                    _form.Display("Authentification failed.");
+                    _form.Display("Authentication failed");
                 }
                 else
                 {
                     _form.Close();
                     Homepage homepage = new Homepage(_token);
-                    MessageBox.Show(_token);
                     homepage.Show();
                 }
             }
             else
             {
-                _form.Display("Invalid input.");
+                _form.Display("       Invalid input");
             }
 
 
         }
 
-        private bool Sanitize(string _username, string _password)
+        private bool Sanitize(string username, string password)
         {
-            bool isValid = Char.IsLetter(_username[0]);
-            if (isValid && _username.Length == 5)
+            bool isValid = username != "" && Char.IsLetter(username[0]);
+            if (isValid && username.Length == 5)
             {
-                if (_password.Length < 100)
+                if (password.Length < 100)
                 {
                     return true;
                 }

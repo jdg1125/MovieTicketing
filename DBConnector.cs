@@ -288,7 +288,7 @@ namespace Control
         {
             string loginTime = DateTime.Now.ToString("G");
             _cmd.CommandText = $"INSERT INTO UserSession(User, LoginTime) VALUES ('{username}', '{loginTime}');";
-            MessageBox.Show(_cmd.ExecuteNonQuery().ToString());
+            _cmd.ExecuteNonQuery();
 
             return username + "_" + loginTime;
         }

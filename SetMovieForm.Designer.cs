@@ -2,6 +2,7 @@
 using Entity;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Boundary
@@ -23,6 +24,7 @@ namespace Boundary
         private void InitializeComponent()
         {
             this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 1000);
@@ -30,12 +32,12 @@ namespace Boundary
         }
         private void Setmovieform_Load()
         {
-            Label setmovies = new Label();
-            setmovies.Text = "Set Movies";
-            setmovies.Font = new Font("Sans Serif", 30);
-            setmovies.AutoSize = true;
-            setmovies.Location = new Point(ClientSize.Width / 2 - setmovies.Width / 2, 25);
-            this.Controls.Add(setmovies);
+            Label header = new Label();
+            header.Text = "Set Movies";
+            header.Font = new Font("Sans Serif", 30);
+            header.AutoSize = true;
+            header.Location = new Point(ClientSize.Width / 2 - header.Width / 2, 25);
+            this.Controls.Add(header);
 
             logout = new Button();
             logout.Text = "Log out";
@@ -96,6 +98,13 @@ namespace Boundary
             end.Location = new Point(ClientSize.Width - end.Width - 80, 11 * ClientSize.Height / 16);
             end.Width = 150;
             this.Controls.Add(end);
+
+            message = new Label();
+            message.Location = new Point(20, ClientSize.Height - 260);
+            message.Font = new Font("Sans Serif", 16);
+            message.ForeColor = Color.Red;
+            message.AutoSize = true;
+            this.Controls.Add(message);
 
             date = new DateTimePicker();
             date.Value = DateTime.Today;
@@ -193,7 +202,9 @@ namespace Boundary
 
         public override void Display(string msg)
         {
-            
+            message.Text = msg;
+            message.Refresh();
+            Thread.Sleep(3000);
         }
 
         public void DisplayPoster(string path)
