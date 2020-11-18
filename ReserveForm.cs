@@ -15,6 +15,7 @@ namespace Boundary
     public partial class ReserveForm : IForm
     {
         private List<MovieEntry> _movies;
+        private string _token;
 
         private Button logout, reserve, search;
         private TextBox enterSeats;
@@ -23,10 +24,11 @@ namespace Boundary
         private DateTimePicker date;
         private Label message;
 
-        public ReserveForm(ReserveCtrl ctrl)
+        public ReserveForm(ReserveCtrl ctrl, string token)
         {
             InitializeComponent();
             _ctrl = ctrl;
+            _token = token;
             ReserveForm_Load();
         }
     }
