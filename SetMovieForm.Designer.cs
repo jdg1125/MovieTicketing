@@ -31,7 +31,6 @@ namespace Boundary
             this.ClientSize = new System.Drawing.Size(1000, 800);
             this.Text = "Set Movie Form";
             this.AutoScroll = true;
-
         }
         private void Setmovieform_Load()
         {
@@ -72,12 +71,12 @@ namespace Boundary
             theaters.Font = new Font("Sans Serif", 20);
             for (int i = 1; i < 13; i++)
                 theaters.Items.Add(i);
-            theaters.Location = new Point(2 * ClientSize.Width / 3, 350);
+            theaters.Location = new Point(2 * ClientSize.Width / 3, ClientSize.Height/4);
             theaters.DropDownStyle = ComboBoxStyle.DropDownList;
             this.Controls.Add(theaters);
 
             posterArea = new PictureBox();
-            posterArea.Location = new Point(200, 200);
+            posterArea.Location = new Point(150, 180);
             posterArea.Size = new Size(250, 320);
             this.Controls.Add(posterArea);
 
@@ -104,7 +103,7 @@ namespace Boundary
             this.Controls.Add(end);
 
             message = new Label();
-            message.Location = new Point(20, ClientSize.Height - 260);
+            message.Location = new Point(140, 7*ClientSize.Height/8 - 40);
             message.Font = new Font("Sans Serif", 16);
             message.ForeColor = Color.Red;
             message.AutoSize = true;
@@ -123,7 +122,7 @@ namespace Boundary
             addNew = new Button();
             addNew.Text = "Add New";
             addNew.AutoSize = true;
-            addNew.Location = new Point(ClientSize.Width / 2 - addNew.Width / 2, 3 * ClientSize.Height / 4);
+            addNew.Location = new Point(ClientSize.Width / 2 - addNew.Width / 2  - 30, 3 * ClientSize.Height / 4);
             addNew.BackColor = Color.White;
             addNew.Padding = new Padding(6);
             addNew.Font = new Font("Sans Serif", 25);
@@ -133,7 +132,7 @@ namespace Boundary
             submit = new Button();
             submit.Text = "Submit";
             submit.AutoSize = true;
-            submit.Location = new Point(ClientSize.Width / 2 - submit.Width / 2, ClientSize.Height - 100);
+            submit.Location = new Point(ClientSize.Width / 2 - submit.Width/2 + 5, ClientSize.Height - 80);
             submit.BackColor = Color.White;
             submit.Padding = new Padding(6);
             submit.Font = new Font("Sans Serif", 20);
@@ -220,7 +219,6 @@ namespace Boundary
             string cd = Environment.CurrentDirectory;            
             DirectoryInfo[] folders = Directory.GetParent(cd).Parent.GetDirectories("Posters");
             cd =folders[0].FullName;
-            MessageBox.Show(cd+path);
 
             posterArea.ImageLocation = cd + path;
             posterArea.Refresh();

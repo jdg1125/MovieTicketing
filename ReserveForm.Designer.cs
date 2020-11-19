@@ -87,13 +87,13 @@ namespace Boundary
             movieSelector = new ComboBox();
             movieSelector.Text = "Movie/Time/Available Seats";
             movieSelector.DropDownStyle = ComboBoxStyle.DropDownList;
-            movieSelector.Width = 400;
+            movieSelector.Width = 500;
             movieSelector.Font = new Font("Sans Serif", 15);
-            movieSelector.Location = new Point(ClientSize.Width / 2, 5 * ClientSize.Height / 12);
+            movieSelector.Location = new Point(ClientSize.Width / 2 -50, 5 * ClientSize.Height / 12);
             this.Controls.Add(movieSelector);
 
             message = new Label();
-            message.Location = new Point(20, ClientSize.Height - 260);
+            message.Location = new Point(170, 5*ClientSize.Height/6-20);
             message.Font = new Font("Sans Serif", 16);
             message.ForeColor = Color.Red;
             message.AutoSize = true;

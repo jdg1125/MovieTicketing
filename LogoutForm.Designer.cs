@@ -39,18 +39,17 @@ namespace Boundary
             this.Controls.Add(header);
 
             message = new Label();
-            message.Location = new Point(ClientSize.Width / 2 - message.Width  , ClientSize.Height/2 + 115);
+            message.Location = new Point(90, ClientSize.Height/2 + 115);
             message.Font = new Font("Sans Serif", 16);
             message.ForeColor = Color.Red;
             message.AutoSize = true;
-            message.Text = "test";
             this.Controls.Add(message);
 
             yes = new Button();
             yes.Text = "Yes";
             yes.Height = 80;
             yes.Width = 100;
-            yes.Location = new Point(ClientSize.Width / 2 - yes.Width + 40, ClientSize.Height/2);
+            yes.Location = new Point(ClientSize.Width / 2 - yes.Width + 50, ClientSize.Height/2);
             yes.AutoSize = true;
             yes.BackColor = Color.White;
             yes.Padding = new Padding(6);

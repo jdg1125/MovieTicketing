@@ -1,10 +1,6 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Entity
 {
@@ -17,7 +13,6 @@ namespace Entity
         public Showtime Time { get; set; }
         public int SeatsAvailable { get; set; }
         public string PosterPath { get; set; }
-
 
         public MovieEntry(int id, int theatre, string title, Showtime time, int seats, string posterpath)
         {
@@ -45,6 +40,7 @@ namespace Entity
         {
             string delimiter = " / ";
             StringBuilder sb = new StringBuilder();
+            sb.Append("Th: ");
             sb.Append(Theatre);
             sb.Append(delimiter);
             sb.Append(Title);
@@ -54,22 +50,5 @@ namespace Entity
             sb.Append(SeatsAvailable);
             return sb.ToString();
         }
-
-        //public override string ToString()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append("id: " + Id);
-        //    sb.Append("\ntheater: " + Theatre);
-        //    sb.Append("\n" + Title);
-        //    sb.Append("\nstart: " + Time.Start.ToString());
-        //    sb.Append("\nend: " + Time.End.ToString());
-        //    sb.Append("\nseats: " + SeatsAvailable);
-        //    sb.Append("\n" + PosterPath);
-
-        //    return sb.ToString();
-
-
-
-        //}
     }
 }
