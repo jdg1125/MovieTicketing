@@ -33,7 +33,9 @@ namespace Control
             }
             //DropTables();
             _reader.Close();
+
             _connection.Close();
+
         }
         private void InitializeDatabase()
         {
@@ -142,7 +144,14 @@ namespace Control
         public int Save(MovieEntry entry)
         {
             _connection.Open();
-            CheckForConflicts(entry); //initial scan to throw out showtimes that conflict with existing showtimes
+
+            if (!CheckDuration(entry))
+            {
+                _connection.Close();
+                return -1;
+            }
+
+            CheckForCollision(entry); //initial scan to throw out showtimes that conflict with existing showtimes
 
             _cmd.CommandText = $"Select TotalCapacity from Theater where Id={entry.Theatre}";
             _reader = _cmd.ExecuteReader();
@@ -181,10 +190,11 @@ namespace Control
             return result;   //return rows affected, so, in case collision occured, we can display correct message
         }
 
-        private void CheckForConflicts(MovieEntry entry)
+        private void CheckForCollision(MovieEntry entry)
         {
-            StringBuilder sb = new StringBuilder();
-            string common = $"SELECT Id FROM MovieEntry WHERE Theater={entry.Theatre} ";
+            StringBuilder sb = new StringBuilder();         
+
+            string common = $"SELECT Id FROM MovieEntry WHERE Theater={entry.Theatre} "; 
 
             foreach (var showtime in entry.Showings)
             {
@@ -204,11 +214,32 @@ namespace Control
                 _reader = _cmd.ExecuteReader();
 
                 if (_reader.HasRows)
-                    showtime.Start = null; //flag duplicate showtimes
+                    showtime.Start = null; //flag conflicting showtimes
 
                 _reader.Close();
                 sb.Clear();
             }
+        }
+
+        private bool CheckDuration(MovieEntry entry)
+        {
+            _cmd.CommandText = $"SELECT Start, End FROM MovieEntry WHERE MovieEntry.Title='{entry.Title}';";
+            _reader = _cmd.ExecuteReader();
+
+            bool isValid = false;
+
+            if (_reader.Read())  //only need to check first one since all durations in entry match
+            {
+                DateTime dbStart = DateTime.ParseExact(_reader.GetString(0), "yyyy-MM-dd HH:mm:ss", null);
+                DateTime dbEnd = DateTime.ParseExact(_reader.GetString(1), "yyyy-MM-dd HH:mm:ss", null);
+
+                isValid = dbStart - dbEnd == ((DateTime)entry.Showings[0].Start) - ((DateTime)entry.Showings[0].End);
+                _reader.Close();
+                return isValid;
+            }
+
+            _reader.Close();
+            return true;
         }
 
         public List<MovieEntry> GetMovieEntries(DateTime date)

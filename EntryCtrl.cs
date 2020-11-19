@@ -53,8 +53,8 @@ namespace Control
 
             int num;
             if (Validate(entry, out string msg))
-                if ((num = _dbConn.Save(entry)) == 0)
-                    msg = "Invalid entry. The requested theater already has a movie scheduled at this time.";
+                if ((num = _dbConn.Save(entry)) < 1)
+                    msg = "Invalid entry. There's a scheduling or duration conflict with existing entries.";
                 else
                 {
                     int i = msg.IndexOf('e') - 2;
@@ -116,12 +116,12 @@ namespace Control
 
         private bool ShowingsCheck(MovieEntry entry, out string msg)
         {
-            int len = entry.Showings.Count;
+            int len = entry.Showings.Count;     //Showings will always have at least 1 Showtime
             Showtime time = entry.Showings[0];
             TimeSpan duration = (DateTime)time.End - (DateTime)time.Start;
 
             bool isValid = duration.TotalMinutes > 0;
-            if (!isValid)  //entries crossing over midnight
+            if (!isValid && duration.TotalMinutes!=0)  //entries crossing over midnight
             {
                 time.End = ((DateTime)time.End).AddDays(1);
                 duration = (DateTime)time.End - (DateTime)time.Start;
@@ -138,6 +138,8 @@ namespace Control
                         time.End = ((DateTime)time.End).AddDays(1);
                         isValid = (DateTime)time.End - (DateTime)time.Start == duration;
                     }
+                    else
+                        isValid = false;  //durations simply don't match
                 }
             }
 
