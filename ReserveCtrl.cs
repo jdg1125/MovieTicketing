@@ -47,7 +47,8 @@ namespace Control
         private bool Validate(Reservation res, out string msg)
         {
             bool isValid = res.NumSeats>0 && res.NumSeats <= res.MovieEntry.SeatsAvailable;
-            msg = isValid ? "Reservation made successfully. Your confirmation number: " : "Invalid number of seats entered. Your reservation could not be placed.";
+            msg = isValid ? "         Reservation made successfully. Your confirmation number: " :
+                "Invalid number of seats entered. Your reservation could not be placed.";
             return isValid;
         }
     }

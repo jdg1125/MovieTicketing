@@ -17,9 +17,11 @@ namespace MovieTicketing
             LoginCtrl loginCtrl = new LoginCtrl();
             loginCtrl.Initiate(null);
 
-            //DBConnector db = new DBConnector();
+            //EntryCtrl res = new EntryCtrl("s");
+            //Application.Run(new SetMovieForm(res, "s"));
+            ////DBConnector db = new DBConnector();
             //logoutctrl ctrl = new logoutctrl("squash");
-           // Application.Run(new Homepage("e"));
+            // Application.Run(new Homepage("e"));
         }
     
 

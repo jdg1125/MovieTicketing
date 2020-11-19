@@ -134,7 +134,8 @@ namespace Control
                 }
             }
 
-            msg = isValid ? "Entry was successfully created." : "Invalid entry. A show time must contain chronological start and end times. All show time durations must match. No concurrent showings allowed.";
+            msg = isValid ? "\n                                   Entry was successfully created." : 
+                "Invalid entry. A show time must contain chronological start and end times. \nAll show time durations must match. No concurrent showings allowed.";
             return isValid;
         }
     }
