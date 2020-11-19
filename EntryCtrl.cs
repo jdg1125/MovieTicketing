@@ -92,9 +92,9 @@ namespace Control
             return true;
         }
 
-        private bool TitleCheck(MovieEntry entry, out string msg)
+        private bool TitleCheck(MovieEntry entry, out string msg)  //always returns true - consider removing
         {
-            HashSet<char> forbidden = new HashSet<char>() { '*', ';', '|', '&', '=', '.' };
+            HashSet<char> forbidden = new HashSet<char>() { '*', ';', '|', '&', '=', '.', '%', '#', '\\', '/', '-', '+', '!', '`', '\'', ':', ',', '@', '^', '<', '>', '?', '{', '}', '[', ']', '(', ')', '$', '\"' };
             string title = entry.Title;
             int len = title.Length;
             bool isValid = len > 0;

@@ -51,7 +51,15 @@ namespace Boundary
         private bool Sanitize(string username, string password)
         {
             bool isValid = username != "" && Char.IsLetter(username[0]);
-            if (isValid && username.Length == 5)
+            int len = username.Length;
+            isValid = isValid && len==5;
+            HashSet<char> forbidden = new HashSet<char>() { '*', ';', '|', '&', '=', '.', '%', '#', '\\', '/', '-', '+', '!', '`', '\'', ':', ',', '@', '^', '<', '>', '?', '{', '}', '[', ']', '(', ')', '$', '\"'};
+
+            for (int i = 0; isValid && i < len; i++)
+                if (forbidden.Contains(username[i]))
+                    isValid = false;
+
+            if (isValid)
                 if (password.Length < 100)
                     return true;
           
