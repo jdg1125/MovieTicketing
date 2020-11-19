@@ -51,8 +51,15 @@ namespace Control
             if (start != null && end != null)
                 entry.AddTime(new Showtime(start, end));
 
+            int num;
             if (Validate(entry, out string msg))
-                _dbConn.Save(entry);
+                if ((num = _dbConn.Save(entry)) == 0)
+                    msg = "Invalid entry. The requested theater already has a movie scheduled at this time.";
+                else
+                {
+                    int i = msg.IndexOf('e') - 2;
+                    msg = msg.Insert(i, num.ToString());
+                }
 
             _form.Display(msg);
             _form.Close();
@@ -114,7 +121,7 @@ namespace Control
             TimeSpan duration = (DateTime)time.End - (DateTime)time.Start;
             bool isValid = duration.TotalMinutes > 0;
 
-            for (int i = 1; isValid && i < len; i++)  // make sure all showings have same duration > 0
+            for (int i = 1; isValid && i < len; i++)  // make sure all showings have same duration > 0  -  this disallows showtimes that cross over midnight
             {
                 time = entry.Showings[i];
                 if (time.End - time.Start != duration)
@@ -134,8 +141,8 @@ namespace Control
                 }
             }
 
-            msg = isValid ? "\n                                   Entry was successfully created." : 
-                "Invalid entry. A show time must contain chronological start and end times. \nAll show time durations must match. No concurrent showings allowed.";
+            msg = isValid ? "\n                                   entries were successfully created." :
+                "Invalid entry. A show time must contain chronological start and end times. \nAll show time durations must match. No concurrent showings allowed.";  //whitespace needed for rendering
             return isValid;
         }
     }

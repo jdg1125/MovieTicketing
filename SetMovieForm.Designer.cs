@@ -59,14 +59,13 @@ namespace Boundary
             this.Controls.Add(titleBox);
 
             Label titleLabel = new Label();
-            titleLabel.Text = "Movie title   ";
+            titleLabel.Text = "Movie Title   ";
             titleLabel.Location = new Point(75, 110);
             titleLabel.AutoSize = true;
             titleLabel.Font = new Font("Sans Serif", 20);
             this.Controls.Add(titleLabel);
 
             theaters = new ComboBox();
-            theaters.Text = "Select a theater  ";
             theaters.Width = 250;
             theaters.Font = new Font("Sans Serif", 20);
             for (int i = 1; i < 13; i++)
@@ -74,6 +73,13 @@ namespace Boundary
             theaters.Location = new Point(2 * ClientSize.Width / 3, ClientSize.Height/4);
             theaters.DropDownStyle = ComboBoxStyle.DropDownList;
             this.Controls.Add(theaters);
+
+            Label theaterLabel = new Label();
+            theaterLabel.Text = "Select A Theater";
+            theaterLabel.Location = new Point(2 * ClientSize.Width / 3 + 20, ClientSize.Height / 4 - 40);
+            theaterLabel.AutoSize = true;
+            theaterLabel.Font = new Font("Sans Serif", 20);
+            this.Controls.Add(theaterLabel);
 
             posterArea = new PictureBox();
             posterArea.Location = new Point(150, 180);
@@ -211,7 +217,7 @@ namespace Boundary
         {
             message.Text = msg;
             message.Refresh();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
         }
 
         public void DisplayPoster(string path)
@@ -252,10 +258,6 @@ namespace Boundary
             if (_entryDraft.Showings.Count > 0)
                 submit.Enabled = true;
 
-            //foreach (var showtime in _entryDraft.Showings)
-            //    MessageBox.Show(_entryDraft.Title + " " + _entryDraft.Theatre + " " + ((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss") +
-            //        " " + ((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss"));
-
             RefreshTimesMenu();
         }
 
@@ -266,11 +268,3 @@ namespace Boundary
 
     }
 }
-
-/*
- * Rectangle screen = Screen.PrimaryScreen.WorkingArea;
-    int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
-    int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
-    this.Location = new Point((screen.Width - w) / 2, (screen.Height - h) / 2);
-    this.Size = new Size(w, h);
-*/

@@ -33,6 +33,7 @@ namespace Control
             }
             //DropTables();
             _reader.Close();
+            _connection.Close();
         }
         private void InitializeDatabase()
         {
@@ -81,9 +82,9 @@ namespace Control
 
             string cd = Environment.CurrentDirectory;
             DirectoryInfo[] folders = Directory.GetParent(cd).Parent.GetDirectories("Posters");
-            FileInfo[] fileNames = folders[0].GetFiles();  
+            FileInfo[] fileNames = folders[0].GetFiles();
 
-            StreamReader readTitles = new StreamReader("movieTitles.txt"); 
+            StreamReader readTitles = new StreamReader("movieTitles.txt");
             StringBuilder sb = new StringBuilder();
 
             string title = readTitles.ReadLine();
@@ -138,8 +139,9 @@ namespace Control
             }
             MessageBox.Show(result.ToString());
         }
-        public void Save(MovieEntry entry)
+        public int Save(MovieEntry entry)
         {
+            _connection.Open();
             CheckForConflicts(entry); //initial scan to throw out showtimes that conflict with existing showtimes
 
             _cmd.CommandText = $"Select TotalCapacity from Theater where Id={entry.Theatre}";
@@ -150,6 +152,7 @@ namespace Control
 
             string common = "Insert into MovieEntry(Title, Date, Start, End, Theater, CurrentCapacity) VALUES ('";
             StringBuilder sb = new StringBuilder();
+            int result = 0;
 
             foreach (var showtime in entry.Showings)
             {
@@ -170,9 +173,12 @@ namespace Control
                 sb.Append(");");
 
                 _cmd.CommandText = sb.ToString();
-                _cmd.ExecuteNonQuery();
+                result += _cmd.ExecuteNonQuery();
                 sb.Clear();
             }
+            
+            _connection.Close();
+            return result;   //return rows affected, so, in case collision occured, we can display correct message
         }
 
         private void CheckForConflicts(MovieEntry entry)
@@ -182,21 +188,24 @@ namespace Control
 
             foreach (var showtime in entry.Showings)
             {
+                string start = ((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss");
+                string end = ((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss");
+
                 sb.Append(common);
-                sb.Append($"AND Start BETWEEN '{((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss")}' AND '{((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss")}' ");
+                sb.Append($"AND Start BETWEEN '{start}' AND '{end}' ");
                 sb.Append("UNION ");
                 sb.Append(common);
-                sb.Append($"AND '{((DateTime)showtime.Start).ToString("yyyy-MM-dd HH:mm:ss")}' BETWEEN Start AND End ");
+                sb.Append($"AND End BETWEEN '{start}' AND '{end}' ");
                 sb.Append("UNION ");
                 sb.Append(common);
-                sb.Append($"AND '{((DateTime)showtime.End).ToString("yyyy-MM-dd HH:mm:ss")}' BETWEEN Start AND End;");
+                sb.Append($"AND Start <= '{start}' AND End >= '{end}' ");
 
                 _cmd.CommandText = sb.ToString();
                 _reader = _cmd.ExecuteReader();
-                
+
                 if (_reader.HasRows)
                     showtime.Start = null; //flag duplicate showtimes
-                
+
                 _reader.Close();
                 sb.Clear();
             }
@@ -204,24 +213,27 @@ namespace Control
 
         public List<MovieEntry> GetMovieEntries(DateTime date)
         {
+            _connection.Open();
             List<MovieEntry> results = new List<MovieEntry>();
             _cmd.CommandText = $"SELECT Id, Theater, Title, Start, End, CurrentCapacity, ImgPath FROM MovieEntry INNER JOIN Poster ON Poster.MovieTitle=MovieEntry.Title WHERE Date='{date.Date.ToString("d")}';";
             _reader = _cmd.ExecuteReader();
 
             while (_reader.Read())
             {
-                DateTime start=DateTime.ParseExact(_reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null);
-                DateTime end =DateTime.ParseExact(_reader.GetString(4), "yyyy-MM-dd HH:mm:ss", null);
+                DateTime start = DateTime.ParseExact(_reader.GetString(3), "yyyy-MM-dd HH:mm:ss", null);
+                DateTime end = DateTime.ParseExact(_reader.GetString(4), "yyyy-MM-dd HH:mm:ss", null);
                 MovieEntry entry = new MovieEntry(_reader.GetInt32(0), _reader.GetInt32(1), _reader.GetString(2), new Showtime(start, end), _reader.GetInt32(5), _reader.GetString(6));
 
                 results.Add(entry);
             }
             _reader.Close();
+            _connection.Close();
             return results;
         }
 
         public long Save(Reservation res)
         {
+            _connection.Open();
             _cmd.CommandText = $"INSERT INTO Reservation(Movie, NumSeats) VALUES ({res.MovieEntry.Id}, {res.NumSeats});";
             _cmd.ExecuteNonQuery();
 
@@ -236,10 +248,14 @@ namespace Control
             _cmd.CommandText = $"UPDATE MovieEntry SET CurrentCapacity={currCap} WHERE Id={res.MovieEntry.Id}";
             _cmd.ExecuteNonQuery();
 
-            return _connection.LastInsertRowId;
+            long result = _connection.LastInsertRowId;
+            _connection.Close();
+
+            return result;
         }
         public Poster GetPoster(string title)
         {
+            _connection.Open();
             StringBuilder sb = new StringBuilder();
             sb.Append("Select * from Poster where MovieTitle=");
             sb.Append("'" + title + "';");
@@ -253,12 +269,14 @@ namespace Control
                 poster = new Poster(_reader.GetString(0), _reader.GetString(1));
 
             _reader.Close();
+            _connection.Close();
 
             return poster;
         }
 
         public string Authenticate(string username, string hashpw)
         {
+            _connection.Open();
             _cmd.CommandText = $"SELECT Password FROM User WHERE Username='{username}';";
             _reader = _cmd.ExecuteReader();
 
@@ -276,6 +294,8 @@ namespace Control
             }
             if (!_reader.IsClosed)
                 _reader.Close();
+
+            _connection.Close();
             return token;
         }
 
@@ -290,9 +310,13 @@ namespace Control
 
         public bool RecordLogout(string token)
         {
+            _connection.Open();
             string[] keys = token.Split(new char[] { '_' });
             _cmd.CommandText = $"UPDATE UserSession SET LogoutTime='{DateTime.Now.ToString("G")}' WHERE User='{keys[0]}' AND LoginTime='{keys[1]}';";
-            return _cmd.ExecuteNonQuery() != 0;
+            
+            bool result = _cmd.ExecuteNonQuery() != 0;
+            _connection.Close();
+            return result;
         }
 
     }
