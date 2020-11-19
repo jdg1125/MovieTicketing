@@ -119,13 +119,26 @@ namespace Control
             int len = entry.Showings.Count;
             Showtime time = entry.Showings[0];
             TimeSpan duration = (DateTime)time.End - (DateTime)time.Start;
-            bool isValid = duration.TotalMinutes > 0;
 
-            for (int i = 1; isValid && i < len; i++)  // make sure all showings have same duration > 0  -  this disallows showtimes that cross over midnight
+            bool isValid = duration.TotalMinutes > 0;
+            if (!isValid)  //entries crossing over midnight
+            {
+                time.End = ((DateTime)time.End).AddDays(1);
+                duration = (DateTime)time.End - (DateTime)time.Start;
+                isValid = !isValid;
+            }
+
+            for (int i = 1; isValid && i < len; i++)  // make sure all showings have same duration 
             {
                 time = entry.Showings[i];
                 if (time.End - time.Start != duration)
-                    isValid = false;
+                {
+                    if (((TimeSpan)(time.End - time.Start)).TotalMinutes < 0) //entries crossing over midnight
+                    {
+                        time.End = ((DateTime)time.End).AddDays(1);
+                        isValid = (DateTime)time.End - (DateTime)time.Start == duration;
+                    }
+                }
             }
 
             for (int i = 0; isValid && i < len; i++)    // check for concurrent showings
