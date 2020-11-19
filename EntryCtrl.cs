@@ -69,11 +69,10 @@ namespace Control
 
         private bool Validate(MovieEntry entry, out string msg)
         {
-
-            if (!PosterCheck(entry, out msg))
-                return false;
-
             if (!TitleCheck(entry, out msg))
+                return false;
+            
+            if (!PosterCheck(entry, out msg))
                 return false;
 
             return ShowingsCheck(entry, out msg);
@@ -92,7 +91,7 @@ namespace Control
             return true;
         }
 
-        private bool TitleCheck(MovieEntry entry, out string msg)  //always returns true - consider removing
+        private bool TitleCheck(MovieEntry entry, out string msg)  
         {
             HashSet<char> forbidden = new HashSet<char>() { '*', ';', '|', '&', '=', '.', '%', '#', '\\', '/', '-', '+', '!', '`', '\'', ':', ',', '@', '^', '<', '>', '?', '{', '}', '[', ']', '(', ')', '$', '\"' };
             string title = entry.Title;
@@ -106,7 +105,7 @@ namespace Control
             if (!isValid)
             {
                 msg = "Invalid entry. ";
-                msg += len == 0 ? "Title cannot be empty." : "Title contains invalid characters * ; | . & =";
+                msg += len == 0 ? "Title cannot be empty." : "Title contains invalid characters.";
                 return false;
             }
 
